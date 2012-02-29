@@ -26,7 +26,7 @@
 
 #define PRINT_HEXA 0
 #define PRINT_CHAR 1
-#define MAX_SIZE_ID 5
+#define MAX_SIZE_ID 4
 
 #define MAX_SIZE_DEVICE_NAME 512
 
@@ -40,7 +40,7 @@ typedef struct _target
  char port_device[MAX_SIZE_DEVICE_NAME];
  int fd;
  int target;
- char dest_node_id[MAX_SIZE_ID];
+ char dest_node_id[MAX_SIZE_ID+1];
  int taille;
  int last_memory_address;
  unsigned char *intel_hex_array;

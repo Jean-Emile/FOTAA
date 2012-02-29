@@ -12,16 +12,18 @@ import java.util.Map;
 
 public final class Constants {
 
+
+    public final static String avrDevices[] = {"m328p", "ATMEGA328"};
+    public final static String programmerType[] = {"usbtiny"};
+
     public final static Map messages= new HashMap() {
         {
-            put(-1, "The SerialPort bitrate choosen is out of scope");
-            put(-2, "SerialPort device does not exist");
-            put(-3," Attributes and fill termios structure");
+
+            put(-1, "The avr device selected is not available");
+            put(-2, " Fail to burnBootloader byte");
+            put(-3, " Fail to read byte");
             put(-4, " set baud rate ");
-
-            put(-7, " Fail to write byte");
-            put(-8, " Fail to read byte");
-
+            put(-5, "SerialPort device does not exist");
             put(-29, "Bootloader found and ready\n");
             put(-30, " the program is empty");
             put(-31, " the last memory address was not found");
@@ -31,12 +33,14 @@ public final class Constants {
             put(-35,"Waiting for target IC to boot into bootloader");
             put(-36,"Re-send");
             put(-38," Transmission completed successfully");
+
         }
     };
 
 
     public final static Map boards = new HashMap() {
         {
+            put("m328p","0");
             put("ATMEGA328","0");
             put("ATMEGA328P","1");
 

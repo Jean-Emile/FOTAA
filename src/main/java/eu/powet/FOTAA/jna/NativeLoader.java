@@ -2,19 +2,18 @@ package eu.powet.FOTAA.jna;
 
 import com.sun.jna.Native;
 import com.sun.jna.NativeLibrary;
-
 import java.io.*;
 import java.util.HashMap;
 
 
 public class NativeLoader {
 
-    public static synchronized FlashJNA getINSTANCE_Foa() {
+    public static synchronized FotaaJNA getINSTANCE_Foa() {
         configureFOA();
         return INSTANCE_Foa;
     }
 
-    private static FlashJNA INSTANCE_Foa = null;
+    private static FotaaJNA INSTANCE_Foa = null;
 
     private static void configureFOA() {
         if (INSTANCE_Foa == null) {
@@ -26,7 +25,7 @@ public class NativeLoader {
                 folder.mkdirs();
                 String absolutePath = copyFileFromStream(getPath("flash.so"), folder.getAbsolutePath(), "flash" + getExtension());
                 NativeLibrary.addSearchPath("flash", folder.getAbsolutePath());
-                INSTANCE_Foa = (FlashJNA) Native.loadLibrary(absolutePath, FlashJNA.class, new HashMap());
+                INSTANCE_Foa = (FotaaJNA) Native.loadLibrary(absolutePath, FotaaJNA.class, new HashMap());
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -63,7 +62,7 @@ public class NativeLoader {
     }
 
     /* Utility fonctions */
-    private static void deleteOldFile(File folder) {
+    public static void deleteOldFile(File folder) {
         if (folder.isDirectory()) {
             for (File f : folder.listFiles()) {
                 if (f.isFile()) {
@@ -76,7 +75,7 @@ public class NativeLoader {
         folder.delete();
     }
 
-    private static String copyFileFromStream(String inputFile, String path, String targetName) throws IOException {
+    public static String copyFileFromStream(String inputFile, String path, String targetName) throws IOException {
         InputStream inputStream = NativeLoader.class.getClassLoader().getResourceAsStream(inputFile);
         if (inputStream != null) {
             File copy = new File(path + File.separator + targetName);
@@ -84,6 +83,7 @@ public class NativeLoader {
             OutputStream outputStream = new FileOutputStream(copy);
             byte[] bytes = new byte[1024];
             int length = inputStream.read(bytes);
+  
             while (length > -1) {
                 outputStream.write(bytes, 0, length);
                 length = inputStream.read(bytes);

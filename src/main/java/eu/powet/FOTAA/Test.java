@@ -1,9 +1,7 @@
 package eu.powet.FOTAA;
 
-import eu.powet.FOTAA.API_FOTAA.FlashFirmware;
-import eu.powet.FOTAA.API_FOTAA.FlashFirmwareEvent;
-import eu.powet.FOTAA.API_FOTAA.FlashFirmwareEventListener;
-import eu.powet.FOTAA.Utils.KHelpers;
+import eu.powet.FOTAA.utils.Helpers;
+import eu.powet.FOTAA.jna.NativeLoader;
 
 
 public class Test {
@@ -16,21 +14,28 @@ public class Test {
 
     public static void main(String[] args) throws Exception {
 
+        Byte[] intel = Helpers.read_file(NativeLoader.class.getClassLoader().getResourceAsStream("programTest/test.hex"));
 
-        FlashFirmware flash = new FlashFirmware("/dev/tty.usbserial-A400g2wl","ATMEGA328","NODE0");
+        Firmware flash = new Firmware(new DeviceAVR("/dev/ttyACM0","ATMEGA328","K000"));
 
-        Byte[] intel = KHelpers.read_file("/Users/oxyss35/kevoree-extra/org.kevoree.extra.kserial/src/main/c/FlashOvertheair/program_test/test.hex");
-        if(flash.write_on_the_air_program(intel) >= 0){
-            flash.addEventListener(new FlashFirmwareEventListener() {
-                // @Override
-                public void FlashEvent(FlashFirmwareEvent evt) {
-                    System.out.println("Callback Event received :  "+evt.getSize_uploaded());
-                }
-            });
+        flash.upload_program(intel);
 
-            Thread.currentThread().sleep(1000000);
 
-        }
+        flash.addEventListener(new FirmwareEventListener() {
+            // @Override
+            public void progressEvent(FirmwareEvent evt) {
+                System.out.println(" Uploaded "+evt.getSize_uploaded()+" octets");
+            }
+
+            @Override
+            public void completedEvent(FirmwareEvent evt) {
+                System.out.println("Transmission completed successfully <"+evt.getFlashFirmware().getAvr().getTag()+">");
+                System.exit(0);
+            }
+        });
+
+        Thread.currentThread().sleep(1000000);
+
 
 
     }

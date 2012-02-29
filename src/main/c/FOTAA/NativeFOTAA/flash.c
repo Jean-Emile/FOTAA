@@ -6,10 +6,7 @@
  */
 #include "flash.h"
 
-
-
 #define _POSIX_SOURCE 1 /* POSIX compliant source */
-
 
 ///#define DEBUG
 
@@ -62,7 +59,6 @@ int open_file(char *path,unsigned char *hex_intel){
 
 }
 
-
 unsigned int hex2dec( char *s )
 {
 	unsigned int v = 0;
@@ -84,44 +80,12 @@ unsigned int hex2dec( char *s )
 	return v;
 }
 
-
-
-
-/*
-int HexToDec(unsigned char * str)
-{
-	unsigned int val = 0;
-	char c;
-	while(c = *str++)
-	{
-		val <<= 4;
-		if (c >= '0' && c <= '9')
-		{
-			val += c & 0x0F;
-			continue;
-		}
-		c &= 0xDF;
-		if (c >= 'A' && c <= 'F')
-		{
-			val += (c & 0x07) + 9;
-			continue;
-		}
-
-		errno = EINVAL;
-		return 0;
-	}
-
-	return val;
-}
-
-*/
-
 int HexToDec(char *str)
 {
-    int value;
-    // so simple WTF !
-    sscanf(str,"%x",&value);
-    return value;
+	int value;
+	// so simple WTF !
+	sscanf(str,"%x",&value);
+	return value;
 }
 
 int parseHex(char h,char l)
@@ -132,7 +96,6 @@ int parseHex(char h,char l)
 	buffer[1] = l;
 	return HexToDec(&buffer[0]);;
 }
-
 
 unsigned char * parse_intel_hex(int taille,int *last_memory, unsigned char *src_hex_intel)
 {
@@ -152,10 +115,9 @@ unsigned char * parse_intel_hex(int taille,int *last_memory, unsigned char *src_
 	{
 		destination_intel_hex_array[i] = 255; // FF
 	}
-	
 	// clean 
 	memset(page,0,sizeof(page));
-	
+
 	// cleaning step
 	i=0;
 	while(i < taille)
@@ -191,16 +153,16 @@ unsigned char * parse_intel_hex(int taille,int *last_memory, unsigned char *src_
 			if( memory_address + length  != 0)
 			{
 				last_memory_address = (memory_address + length);
-			//	printf("last_memory_address  %d \n",	last_memory_address  );
+				//	printf("last_memory_address  %d \n",	last_memory_address  );
 				*last_memory =  last_memory_address;
 			}
 			for(y=0;y<length;y++)
 			{
 				lower_byte = (8+y*2);
 				upper_byte = (9+y*2);
-			//	printf("lower_byte %d\n upper_byte %d--> (%c%c) to base 10 (%d) \n",lower_byte,upper_byte,page[i+lower_byte],page[i+upper_byte],parseHex(page[lower_byte],page[upper_byte]));
+				//	printf("lower_byte %d\n upper_byte %d--> (%c%c) to base 10 (%d) \n",lower_byte,upper_byte,page[i+lower_byte],page[i+upper_byte],parseHex(page[lower_byte],page[upper_byte]));
 				destination_intel_hex_array[memory_address + y] = parseHex(page[lower_byte],page[upper_byte]);
-			//	printf("%x",destination_intel_hex_array[memory_address + y]);
+				//	printf("%x",destination_intel_hex_array[memory_address + y]);
 			}
 		}
 		i++;
@@ -212,10 +174,8 @@ void print_hex_array(int type,int taille,unsigned char *hex_array)
 {
 	if(hex_array != NULL){
 		int i;
-		printf("*********************************************\n");
+	//	printf("*********************************************\n");
 		for(i=0;i<taille;i++){
-
-
 			if(hex_array[i] == '\n')
 				printf("\n");
 			else{
@@ -225,43 +185,37 @@ void print_hex_array(int type,int taille,unsigned char *hex_array)
 					printf("%c",hex_array[i]);
 				}
 			}
-
-
 		}
-		printf("*********************************************\n");
+	//	printf("*********************************************\n");
 	} else {
-		printf("ERROR\n");
-
+		printf("WTF\n");
 	}
-
 }
 
 int hex2bin(char *sHexString)
 {
-    int answer;
-    char *pH;
+	int answer;
+	char *pH;
+	pH = sHexString;
+	answer = 0;
+	while (*pH != '\0')
+	{
+		if (*pH >= '0' && *pH <= '9') // it's a digit
+			answer = (answer*16) + (*pH - '0');
+		else if (*pH >= 'a' && *pH <= 'f') // it's a smallcase letter a to f
+			answer = (answer*16) + (*pH - 'a') + 10;
+		else if (*pH >= 'A' && *pH <= 'F') // it's a smallcase letter a to f
+			answer = (answer*16) + (*pH - 'A') + 10;
 
-    pH = sHexString;
-    answer = 0;
-    while (*pH != '\0')
-    {
-        if (*pH >= '0' && *pH <= '9') // it's a digit
-            answer = (answer*16) + (*pH - '0');
-        else if (*pH >= 'a' && *pH <= 'f') // it's a smallcase letter a to f
-            answer = (answer*16) + (*pH - 'a') + 10;
-        else if (*pH >= 'A' && *pH <= 'F') // it's a smallcase letter a to f
-            answer = (answer*16) + (*pH - 'A') + 10;
-
-        pH++;
-    }
-    return answer;
+		pH++;
+	}
+	return answer;
 }
 
 void close_flash(){
 
 	if(flash_exit == 0)
 		close(fd);
-
 	flash_exit = 1;
 }
 
@@ -293,23 +247,17 @@ void *flash_firmware(Target *infos)
 		page_size = 256;
 		flash_size = 131072;
 		break;
-
 	case ATMEGA168:
-         page_size = 168;
-         flash_size = 131072;  // TODO
+		page_size = 168;
+		flash_size = 131072;  // TODO
 		break;
 	default :
-		FlashEvent(-32);
+		FlashEvent(-1);
 		close_flash();
 		break;
 	}
 
-	if(serialport_writebyte(infos->fd,'r') < 0)
-	{
-		FlashEvent(-7);
-		close_flash();
-	}
-
+	RESTART:
 	do
 	{
 		boot_flag =  serialport_readbyte(infos->fd);
@@ -318,167 +266,183 @@ void *flash_firmware(Target *infos)
 
 	}while( boot_flag !=5 && flash_exit == 0);
 
-	FlashEvent(-29);
-
 
 	if(serialport_writebyte(infos->fd,6) < 0)
 	{
-
-		FlashEvent(-32);
+		FlashEvent(-2);
 		close_flash();
 	}
 
-	int i=0;
-    memset(NODE_ID,0,sizeof(NODE_ID));
-	for(i=0;i<MAX_SIZE_ID;i++)
+	int i;
+	char ID[MAX_SIZE_ID];
+	memset(ID,0,sizeof(ID));
+	for(i=0;i< MAX_SIZE_ID;i++)
 	{
-		NODE_ID[i]= serialport_readbyte(infos->fd);
-        if(NODE_ID[i] != 0 && (i < MAX_SIZE_ID-1))
-        {
-                  if((NODE_ID[i]) != infos->dest_node_id[i])
-           		{
-           			FlashEvent(-33);
-           		}
-        }
-        usleep(80);
+		ID[i]  =(char)   serialport_readbyte(fd);
+	}
+	if(ID[0] == 5)
+	{
+		goto RESTART;
 	}
 
-	//printf("FLASH <%s>\n",NODE_ID);
-
-	current_memory_address = 0;
-
-	while((current_memory_address < infos->last_memory_address) && (flash_exit == 0))
+	FlashEvent(-29);
+	if(strcmp(ID,infos->dest_node_id))
 	{
+		FlashEvent(-33);
+		close_flash();
+	}
+	else
+	{
+		// printf("Node is %s\n",ID);
 
-		FlashEvent(current_memory_address);
-    	//printf("\n %d/%d octets ",current_memory_address, infos->last_memory_address);
-		ready_flag =  serialport_readbyte(fd);
-		if(ready_flag == 'T')
+		for(i=0;i< MAX_SIZE_ID;i++)
 		{
-			//printf(" The bootloader is ready :%c\n",ready_flag);
-		}else if(ready_flag = 7)
-		{
-			//printf("Re-send line %d \n",ready_flag);
-			FlashEvent(-36);
-			current_memory_address = current_memory_address - page_size;
-			if(current_memory_address  < 0) current_memory_address  =0;
-		}else
-		{
-			FlashEvent(-34);
-			usleep(1000);
-			// WTF ?!!
+			if(serialport_writebyte(infos->fd,infos->dest_node_id[i]) < 0)
+			{
+				FlashEvent(-2);
+				close_flash();
+			}
+
 		}
 
-		//  Convert 16-bit current_memory_address into two 8-bit characters
-		Memory_Address_High =(current_memory_address / 256);
-		Memory_Address_Low = (current_memory_address % 256);
+		current_memory_address = 0;
 
-	//	printf("Memory_Address_High %d\n Memory_Address_Low %d \n",Memory_Address_High,Memory_Address_Low);
-
-		//Calculate current check_sum
-		Check_Sum = 0;
-		Check_Sum = Check_Sum + page_size;
-		Check_Sum = Check_Sum + Memory_Address_High; 	//'Convert high byte
-		Check_Sum = Check_Sum + Memory_Address_Low; 	//'Convert low byte
-
-		int i,j;
-		for(i=0;i<page_size;i++)
+		while((current_memory_address < infos->last_memory_address) && (flash_exit == 0))
 		{
-			Check_Sum = Check_Sum + infos->intel_hex_array[current_memory_address + i];
+
+			FlashEvent(current_memory_address);
+			//printf("\n %d/%d octets ",current_memory_address, infos->last_memory_address);
+			ready_flag =  serialport_readbyte(fd);
+			if(ready_flag == 'T')
+			{
+				//printf(" The bootloader is ready :%c\n",ready_flag);
+			}else if(ready_flag = 7)
+			{
+				//printf("Re-send line %d \n",ready_flag);
+				FlashEvent(-36);
+				current_memory_address = current_memory_address - page_size;
+				if(current_memory_address  < 0) current_memory_address  =0;
+			}else
+			{
+				FlashEvent(-34);
+				usleep(1000);
+				// WTF ?!!
+			}
+
+			//  Convert 16-bit current_memory_address into two 8-bit characters
+			Memory_Address_High =(current_memory_address / 256);
+			Memory_Address_Low = (current_memory_address % 256);
+
+			//	printf("Memory_Address_High %d\n Memory_Address_Low %d \n",Memory_Address_High,Memory_Address_Low);
+
+			//Calculate current check_sum
+			Check_Sum = 0;
+			Check_Sum = Check_Sum + page_size;
+			Check_Sum = Check_Sum + Memory_Address_High; 	//'Convert high byte
+			Check_Sum = Check_Sum + Memory_Address_Low; 	//'Convert low byte
+
+			int i,j;
+			for(i=0;i<page_size;i++)
+			{
+				Check_Sum = Check_Sum + infos->intel_hex_array[current_memory_address + i];
+			}
+
+			//Now reduce check_sum to 8 bits
+			while(Check_Sum > 256){
+				Check_Sum = Check_Sum - 256;
+			}
+
+			//Now take 2's compliment
+			Check_Sum = 256 - Check_Sum;
+
+			//printf("Send the start character :\n");
+			if(serialport_writebyte(infos->fd,':') < 0)
+			{
+				FlashEvent(-2);
+			}
+			//printf("Send page_size %d\n",page_size);
+			c = page_size;
+			//Send the record length
+			if(serialport_writebyte(infos->fd,c) < 0){
+				FlashEvent(-2);
+			}
+
+			//printf("Send this block's address Low %d \n",Memory_Address_Low);
+			c=Memory_Address_Low;
+			if(serialport_writebyte(infos->fd,c) < 0)
+			{
+				// perror("write byte mem low");
+				FlashEvent(-2);
+			}
+			c=Memory_Address_High;
+			if(serialport_writebyte(infos->fd,Memory_Address_High) < 0)
+			{
+				//  perror("write byte mem high");
+				FlashEvent(-2);
+			}
+
+			//printf("Send this block's check sum %d \n",Check_Sum);
+			c=Check_Sum;
+			if(serialport_writebyte(infos->fd,c)< 0)
+			{
+				//  perror("write byte check sum");
+				FlashEvent(-2);
+			}
+
+			//Send the block
+			j=0;
+			while(j < (page_size)  && (flash_exit == 0) )
+			{
+				unsigned char block = 	infos->intel_hex_array[current_memory_address + j];
+				if(serialport_writebyte(infos->fd,block) < 0)
+				{
+					//  perror("write byte hex");
+					FlashEvent(-2);
+				}
+				//printf("%c",block);
+#ifdef OSX
+				usleep(50);
+#endif
+				j++;
+			}
+			current_memory_address = current_memory_address + page_size;
+
 		}
 
-		//Now reduce check_sum to 8 bits
-		while(Check_Sum > 256){
-			Check_Sum = Check_Sum - 256;
-		}
-
-		//Now take 2's compliment
-		Check_Sum = 256 - Check_Sum;
-
-		//printf("Send the start character :\n");
+		int ack1,ack2,ack3;
 		if(serialport_writebyte(infos->fd,':') < 0)
 		{
-		  perror("write byte");
-			FlashEvent(-7);
+			FlashEvent(-2);
 		}
-		//printf("Send page_size %d\n",page_size);
-		c = page_size;
-		//Send the record length
-		if(serialport_writebyte(infos->fd,c) < 0){
-		  perror("write byte page length");
-			FlashEvent(-7);
+		ack1 = serialport_readbyte(infos->fd);
+
+		if(serialport_writebyte(infos->fd,'S') < 0)
+		{
+			FlashEvent(-2);
+		}
+		ack2 = serialport_readbyte(infos->fd);
+		if(serialport_writebyte(infos->fd,'S') < 0)
+		{
+			FlashEvent(-2);
+		}
+		ack3 = serialport_readbyte(infos->fd);
+		if(serialport_writebyte(infos->fd,'S') < 0)
+		{
+			FlashEvent(-2);
 		}
 
-		//printf("Send this block's address Low %d \n",Memory_Address_Low);
-		c=Memory_Address_Low;
-		if(serialport_writebyte(infos->fd,c) < 0)
+		if(ack1 == 84 && ack2 == 254 && ack3 == 255)
 		{
-		    perror("write byte mem low");
-			FlashEvent(-7);
+			FlashEvent(-38);
 		}
-		c=Memory_Address_High;
-		if(serialport_writebyte(infos->fd,Memory_Address_High) < 0)
+		else
 		{
-		           perror("write byte mem high");
-			FlashEvent(-7);
+			FlashEvent(-39);
 		}
-
-		//printf("Send this block's check sum %d \n",Check_Sum);
-		c=Check_Sum;
-		if(serialport_writebyte(infos->fd,c)< 0)
-		{
-		  perror("write byte check sum");
-			FlashEvent(-7);
-		}
-
-		//Send the block
-		j=0;
-		while(j < (page_size)  && (flash_exit == 0) )
-		{
-			unsigned char block = 	infos->intel_hex_array[current_memory_address + j];
-			if(serialport_writebyte(infos->fd,block) < 0)
-			{
-			  perror("write byte hex");
-				FlashEvent(-7);
-			}
-			//printf("%c",block);
-			  #ifdef OSX
-                 usleep(50);
-              #endif
-			j++;
-		}
-		current_memory_address = current_memory_address + page_size;
-
 	}
-
-	if(serialport_writebyte(infos->fd,':') < 0)
-	{
-		FlashEvent(-7);
-	}
-
-	if(serialport_writebyte(infos->fd,'S') < 0)
-	{
-		FlashEvent(-7);
-	}
-
-	serialport_readbyte(infos->fd);
-
-   	if(serialport_writebyte(infos->fd,'S') < 0)
-   	{
-   		FlashEvent(-7);
-   	}
-
-    if(serialport_readbyte(infos->fd) == 8)
-    {
-      	FlashEvent(-38);
-    }else
-    {
-        FlashEvent(-39);
-    }
-
 	if(infos != NULL)
 		free(infos);
-		
+
 	close_flash();
 
 	pthread_exit(NULL);
@@ -493,6 +457,7 @@ int write_on_the_air_program(char *port_device,int target,char *dest_node_id,int
 	Target *mytarget  = (Target*)malloc(sizeof(Target));
 	strcpy(mytarget->port_device,port_device);
 	mytarget->target =  target;
+	memset(mytarget->dest_node_id,0,sizeof(mytarget->dest_node_id));
 	strcpy(mytarget->dest_node_id,dest_node_id);
 	mytarget->taille = taille;
 
@@ -502,28 +467,24 @@ int write_on_the_air_program(char *port_device,int target,char *dest_node_id,int
 	{
 		return -1;
 	}
+#ifdef OSX
+	mytarget->fd = open(mytarget->port_device, O_RDWR | O_NONBLOCK );
+#endif
 
-    #ifdef OSX
-    	mytarget->fd = open(mytarget->port_device, O_RDWR | O_NONBLOCK );
-    #endif
-
-    #ifdef NUX
-        mytarget->fd = open(mytarget->port_device, O_RDWR ,0 );
-	#endif
-
+#ifdef NUX
+	mytarget->fd = open(mytarget->port_device, O_RDWR ,0 );
+#endif
 
 	fd = mytarget->fd;
 	if(mytarget->fd < 0)
 	{
 		close_flash();
-		return -2;
+		return -5;
 	}
-
-	fd = mytarget->fd;
 	flash_exit =0;
 
-	tcgetattr(mytarget->fd, & original);
-	tcgetattr(mytarget->fd, & parametres);
+	tcgetattr(fd, & original);
+	tcgetattr(fd, & parametres);
 	cfmakeraw(& parametres);
 	cfsetispeed(& parametres, B19200);
 	cfsetospeed(& parametres, B19200);
@@ -536,9 +497,11 @@ int write_on_the_air_program(char *port_device,int target,char *dest_node_id,int
 
 	// no flow control
 	parametres.c_cflag &= ~CRTSCTS;
-	parametres.c_cflag |= CREAD | CLOCAL | IXON;  // turn on READ & ignore ctrl lines
-	parametres.c_lflag &= ~(ICANON | ECHO | ECHOE | ISIG); // make raw
 
+	parametres.c_cflag |= CREAD | CLOCAL | IXON;  // turn on READ & ignore ctrl lines
+
+
+	parametres.c_lflag &= ~(ICANON | ECHO | ECHOE | ISIG); // make raw
 	parametres.c_oflag &= ~OPOST; // make raw
 
 	// see: http://unixwiz.net/techtips/termios-vmin-vtime.html
@@ -546,28 +509,16 @@ int write_on_the_air_program(char *port_device,int target,char *dest_node_id,int
 	parametres.c_cc[VTIME] = 10;
 
 
-	if (tcsetattr(mytarget->fd, TCSANOW, & parametres) != 0) {
+
+
+	if (tcsetattr(fd, TCSANOW, & parametres) != 0) {
 		perror("tcsetattr");
-		close_flash();
-		return  -4;
+		exit(EXIT_FAILURE);
 	}
 
-	/* flush the serial device */
-	tcflush(mytarget->fd, TCIOFLUSH);
-
-	// Set RTS
-	ioctl(mytarget->fd, TIOCMGET, &status);
-	status |= TIOCM_RTS;
-	ioctl(fd, TIOCMSET, &status);
-
-	// Set DTR
-	ioctl(mytarget->fd, TIOCMGET, &status);
-	status |= TIOCM_DTR;
-	ioctl(mytarget->fd, TIOCMSET, &status);
-
 
 	/* flush the serial device */
-	tcflush(mytarget->fd, TCIOFLUSH);
+	tcflush(fd, TCIOFLUSH);
 
 	return  pthread_create (& flash, NULL,&flash_firmware, mytarget);
 }

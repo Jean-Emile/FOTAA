@@ -276,15 +276,18 @@ void *flash_firmware(Target *infos)
 	int i;
 	char ID[MAX_SIZE_ID];
 	memset(ID,0,sizeof(ID));
-	for(i=0;i< MAX_SIZE_ID;i++)
+	for(i=0;i< MAX_SIZE_ID-1;i++)
 	{
 		ID[i]  =(char)   serialport_readbyte(fd);
+
 	}
 	if(ID[0] == 5)
 	{
+	    memset(ID,0,sizeof(ID));
 		goto RESTART;
 	}
 
+    printf("node %s \n",ID);
 	FlashEvent(-29);
 	if(strcmp(ID,infos->dest_node_id))
 	{
@@ -295,7 +298,7 @@ void *flash_firmware(Target *infos)
 	{
 		// printf("Node is %s\n",ID);
 
-		for(i=0;i< MAX_SIZE_ID;i++)
+		for(i=0;i< MAX_SIZE_ID-1;i++)
 		{
 			if(serialport_writebyte(infos->fd,infos->dest_node_id[i]) < 0)
 			{

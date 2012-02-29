@@ -26,7 +26,7 @@
 
 #define PRINT_HEXA 0
 #define PRINT_CHAR 1
-#define MAX_SIZE_ID 4
+#define MAX_SIZE_ID 5
 
 #define MAX_SIZE_DEVICE_NAME 512
 

@@ -266,7 +266,6 @@ void *flash_firmware(Target *infos)
 		boot_flag =  serialport_readbyte(infos->fd);
 		FlashEvent(-35);
 		usleep(1000);
-
 	}while( boot_flag !=5 && flash_exit == 0);
 
 	if(serialport_writebyte(infos->fd,6) < 0)

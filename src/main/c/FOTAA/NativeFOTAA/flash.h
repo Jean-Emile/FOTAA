@@ -43,7 +43,7 @@ typedef struct _target
 
 void *flash_firmware(Target *targ);
 unsigned char * parse_intel_hex(int taille,int *last_memory, unsigned char *src_hex_intel);
-int serialport_writebyte( int fd, uint8_t b);
+int serialport_writebyte( int fd, char b);
 uint8_t  serialport_readbyte( int fd);
 
 int register_FlashEvent( void* fn);

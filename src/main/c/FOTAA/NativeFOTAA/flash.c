@@ -438,7 +438,7 @@ void *flash_firmware(Target *infos)
             FlashEvent(-2);
         }
 
-        if(ack1 == 84 && (ack2 == 254 || ack2 == 255) && ack3 == 255)
+        if(ack1 == 'T' && ack2 == 'F')
         {
             FlashEvent(-38);
         }

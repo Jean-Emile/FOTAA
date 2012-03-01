@@ -5,28 +5,22 @@
  * Time: 17:27
  */
 
-#include <stdio.h>    /* Standard input/output definitions */
-#include <stdlib.h>
-#include <stdint.h>   /* Standard types */
-#include <string.h>   /* String function definitions */
-#include <unistd.h>   /* UNIX standard function definitions */
-#include <fcntl.h>    /* File control definitions */
-#include <errno.h>    /* Error number definitions */
-#include <termios.h>  /* POSIX terminal control definitions */
-#include <sys/ioctl.h>
-#include <getopt.h>
-#include <ctype.h>
-#include <fcntl.h>
-#include <signal.h>
-#include <stdio.h>
-#include <stdlib.h>
-#include <termios.h>
-#include <unistd.h>
 
+#include <stdint.h>   /* Standard types */
+#include <errno.h>    /* Error number definitions */
+#include <termios.h>
+#include <stdio.h>
+#include <unistd.h>
+#include <fcntl.h>
+#include <sys/signal.h>
+#include <sys/types.h>
+#include <string.h>
+#include <stdlib.h>
+#include <sys/ioctl.h>
 
 #define PRINT_HEXA 0
 #define PRINT_CHAR 1
-#define MAX_SIZE_ID 4
+#define MAX_SIZE_ID 5
 
 #define MAX_SIZE_DEVICE_NAME 512
 

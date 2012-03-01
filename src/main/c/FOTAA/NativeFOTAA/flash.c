@@ -257,7 +257,10 @@ void *flash_firmware(Target *infos)
 		break;
 	}
 
+	int i;
+	char ID[MAX_SIZE_ID];	
 	RESTART:
+		    memset(ID,0,sizeof(ID));
 	do
 	{
 		boot_flag =  serialport_readbyte(infos->fd);
@@ -266,25 +269,33 @@ void *flash_firmware(Target *infos)
 
 	}while( boot_flag !=5 && flash_exit == 0);
 
-
 	if(serialport_writebyte(infos->fd,6) < 0)
 	{
 		FlashEvent(-2);
 		close_flash();
 	}
 
-	int i;
-	char ID[MAX_SIZE_ID];
-	memset(ID,0,sizeof(ID));
-	for(i=0;i< MAX_SIZE_ID;i++)
+
+	for(i=0;i< MAX_SIZE_ID-1;i++)
 	{
 		ID[i]  =(char)   serialport_readbyte(fd);
 	}
-	if(ID[0] == 5)
+	
+	for(i=0;i< MAX_SIZE_ID-1;i++)
+		{
+		if(ID[i]  == -1 )
+		{
+				goto RESTART;
+			FlashEvent(-35);
+		}
+	}
+	
+	if(ID[0] == 5 )
 	{
 		goto RESTART;
 	}
 
+    printf("node %s \n",ID);
 	FlashEvent(-29);
 	if(strcmp(ID,infos->dest_node_id))
 	{
@@ -295,7 +306,7 @@ void *flash_firmware(Target *infos)
 	{
 		// printf("Node is %s\n",ID);
 
-		for(i=0;i< MAX_SIZE_ID;i++)
+		for(i=0;i< MAX_SIZE_ID-1;i++)
 		{
 			if(serialport_writebyte(infos->fd,infos->dest_node_id[i]) < 0)
 			{
@@ -325,7 +336,7 @@ void *flash_firmware(Target *infos)
 			}else
 			{
 				FlashEvent(-34);
-				usleep(1000);
+				usleep(50);
 				// WTF ?!!
 			}
 
@@ -333,7 +344,7 @@ void *flash_firmware(Target *infos)
 			Memory_Address_High =(current_memory_address / 256);
 			Memory_Address_Low = (current_memory_address % 256);
 
-			//	printf("Memory_Address_High %d\n Memory_Address_Low %d \n",Memory_Address_High,Memory_Address_Low);
+			//printf("Memory_Address_High %d\n Memory_Address_Low %d \n",Memory_Address_High,Memory_Address_Low);
 
 			//Calculate current check_sum
 			Check_Sum = 0;
@@ -360,14 +371,14 @@ void *flash_firmware(Target *infos)
 			{
 				FlashEvent(-2);
 			}
-			//printf("Send page_size %d\n",page_size);
+		//	printf("Send page_size %d\n",page_size);
 			c = page_size;
 			//Send the record length
 			if(serialport_writebyte(infos->fd,c) < 0){
 				FlashEvent(-2);
 			}
 
-			//printf("Send this block's address Low %d \n",Memory_Address_Low);
+		//	printf("Send this block's address Low %d \n",Memory_Address_Low);
 			c=Memory_Address_Low;
 			if(serialport_writebyte(infos->fd,c) < 0)
 			{
@@ -381,7 +392,7 @@ void *flash_firmware(Target *infos)
 				FlashEvent(-2);
 			}
 
-			//printf("Send this block's check sum %d \n",Check_Sum);
+		//	printf("Send this block's check sum %d \n",Check_Sum);
 			c=Check_Sum;
 			if(serialport_writebyte(infos->fd,c)< 0)
 			{
@@ -396,13 +407,10 @@ void *flash_firmware(Target *infos)
 				unsigned char block = 	infos->intel_hex_array[current_memory_address + j];
 				if(serialport_writebyte(infos->fd,block) < 0)
 				{
-					//  perror("write byte hex");
+					  perror("write byte hex");
 					FlashEvent(-2);
 				}
-				//printf("%c",block);
-#ifdef OSX
-				usleep(50);
-#endif
+			//	printf("%x",block);
 				j++;
 			}
 			current_memory_address = current_memory_address + page_size;
@@ -483,42 +491,53 @@ int write_on_the_air_program(char *port_device,int target,char *dest_node_id,int
 	}
 	flash_exit =0;
 
-	tcgetattr(fd, & original);
-	tcgetattr(fd, & parametres);
-	cfmakeraw(& parametres);
-	cfsetispeed(& parametres, B19200);
-	cfsetospeed(& parametres, B19200);
+    tcgetattr(mytarget->fd, & original);
+    tcgetattr(mytarget->fd, & parametres);
+    cfmakeraw(& parametres);
+    cfsetispeed(& parametres, B19200);
+    cfsetospeed(& parametres, B19200);
 
-	//No parity (8N1):
-	parametres.c_cflag &= ~PARENB;
-	parametres.c_cflag &= ~CSTOPB;
-	parametres.c_cflag &= ~CSIZE;
-	parametres.c_cflag |= CS8;
+    //No parity (8N1):
+    parametres.c_cflag &= ~PARENB;
+    parametres.c_cflag &= ~CSTOPB;
+    parametres.c_cflag &= ~CSIZE;
+    parametres.c_cflag |= CS8;
 
-	// no flow control
-	parametres.c_cflag &= ~CRTSCTS;
+    // no flow control
+    parametres.c_cflag &= ~CRTSCTS;
+    parametres.c_cflag |= CREAD | CLOCAL | IXON; // turn on READ & ignore ctrl lines
+    parametres.c_lflag &= ~(ICANON | ECHO | ECHOE | ISIG | IEXTEN ); // make raw
 
-	parametres.c_cflag |= CREAD | CLOCAL | IXON;  // turn on READ & ignore ctrl lines
+    parametres.c_oflag &= ~OPOST; // make raw
+        parametres.c_oflag &= ~ONLCR; // make raw
 
-
-	parametres.c_lflag &= ~(ICANON | ECHO | ECHOE | ISIG); // make raw
-	parametres.c_oflag &= ~OPOST; // make raw
-
-	// see: http://unixwiz.net/techtips/termios-vmin-vtime.html
-	parametres.c_cc[VMIN]  = 0;
-	parametres.c_cc[VTIME] = 10;
-
+    // see: http://unixwiz.net/techtips/termios-vmin-vtime.html
+    parametres.c_cc[VMIN] = 0;
+    parametres.c_cc[VTIME] = 10;
 
 
+    if (tcsetattr(mytarget->fd, TCSANOW, & parametres) != 0) {
+    perror("tcsetattr");
+    close_flash();
+    return -4;
+    }
 
-	if (tcsetattr(fd, TCSANOW, & parametres) != 0) {
-		perror("tcsetattr");
-		exit(EXIT_FAILURE);
-	}
 
 
-	/* flush the serial device */
-	tcflush(fd, TCIOFLUSH);
+
+    // Set RTS
+    ioctl(mytarget->fd, TIOCMGET, &status);
+    status |= TIOCM_RTS;
+    ioctl(fd, TIOCMSET, &status);
+
+    // Set DTR
+    ioctl(mytarget->fd, TIOCMGET, &status);
+    status |= TIOCM_DTR;
+    ioctl(mytarget->fd, TIOCMSET, &status);
+
+
+    /* flush the serial device */
+    tcflush(mytarget->fd, TCIOFLUSH);
 
 	return  pthread_create (& flash, NULL,&flash_firmware, mytarget);
 }

@@ -2,76 +2,25 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="6bba8e3b-e19b-4477-a75e-fdc04f7ae374" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/resources/Bootloaders/ATMEGA1280/readme" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/eu.powet.FOTAA.iml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/eu/powet/FOTAA/FirmwareEventListener.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/eu/powet/FOTAA/Gui.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/eu/powet/FOTAA/ProgrammerType.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/eu/powet/FOTAA/UploadedEvent.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/eu/powet/FOTAA/api/IBootloader.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/eu/powet/FOTAA/api/IFirmware.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/eu/powet/FOTAA/utils/Bootloader.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/eu/powet/FOTAA/utils/FotaaError.java" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/c/FOTAA/Bootloaders/ATmega328P/Wireless_Bootloader_ATmega328.elf" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/c/FOTAA/Bootloaders/ATmega328P/Wireless_Bootloader_ATmega328.hex" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/c/FOTAA/Bootloaders/ATmega328P/Wireless_Bootloader_ATmega328.lss" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/c/FOTAA/Bootloaders/ATmega328P/Wireless_Bootloader_ATmega328.lst" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/c/FOTAA/Bootloaders/ATmega328P/Wireless_Bootloader_ATmega328.o" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/java/eu/powet/FOTAA/API_FOTAA/FlashFirmwareEventListener.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/resources/Bootloaders/atmega328p/.dep/Wireless_Bootloader_ATmega328.o.d" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/resources/Bootloaders/atmega328p/Wireless_Bootloader_ATmega328.eep" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/resources/Bootloaders/atmega328p/Wireless_Bootloader_ATmega328.sym" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/target/classes/eu/powet/FOTAA/API_FOTAA/FoaAbstract.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/target/classes/eu/powet/FOTAA/Utils/ByteFIFO.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/target/classes/eu/powet/FOTAA/Utils/KHelpers.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/target/classes/eu/powet/FOTAA/jna/FlashEvent.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/target/classes/eu/powet/FOTAA/jna/FlashJNA.class" afterPath="" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/c/FOTAA/Bootloaders/ATmega328P/Makefile" afterPath="$PROJECT_DIR$/src/main/resources/Bootloaders/atmega328p/Makefile" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/c/FOTAA/Bootloaders/ATmega328P/Wireless_Bootloader_ATmega328.c" afterPath="$PROJECT_DIR$/src/main/resources/Bootloaders/atmega328p/Wireless_Bootloader_ATmega328.c" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/c/FOTAA/program_test/.dep/test.o.d" afterPath="$PROJECT_DIR$/src/main/resources/programTest/.dep/test.o.d" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/c/FOTAA/program_test/Makefile" afterPath="$PROJECT_DIR$/src/main/resources/programTest/Makefile" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/c/FOTAA/program_test/test.c" afterPath="$PROJECT_DIR$/src/main/resources/programTest/test.c" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/c/FOTAA/program_test/test.eep" afterPath="$PROJECT_DIR$/src/main/resources/programTest/test.eep" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/c/FOTAA/program_test/test.elf" afterPath="$PROJECT_DIR$/src/main/resources/programTest/test.elf" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/c/FOTAA/program_test/test.hex" afterPath="$PROJECT_DIR$/src/main/resources/programTest/test.hex" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/c/FOTAA/program_test/test.lss" afterPath="$PROJECT_DIR$/src/main/resources/programTest/test.lss" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/c/FOTAA/program_test/test.lst" afterPath="$PROJECT_DIR$/src/main/resources/programTest/test.lst" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/c/FOTAA/program_test/test.map" afterPath="$PROJECT_DIR$/src/main/resources/programTest/test.map" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/c/FOTAA/program_test/test.o" afterPath="$PROJECT_DIR$/src/main/resources/programTest/test.o" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/c/FOTAA/program_test/test.sym" afterPath="$PROJECT_DIR$/src/main/resources/programTest/test.sym" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/eu/powet/FOTAA/API_FOTAA/FlashFirmware.java" afterPath="$PROJECT_DIR$/src/main/java/eu/powet/FOTAA/Firmware.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/eu/powet/FOTAA/API_FOTAA/FlashFirmwareEvent.java" afterPath="$PROJECT_DIR$/src/main/java/eu/powet/FOTAA/FirmwareEvent.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/eu/powet/FOTAA/API_FOTAA/FoaAbstract.java" afterPath="$PROJECT_DIR$/src/main/java/eu/powet/FOTAA/DeviceAVR.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/eu/powet/FOTAA/Utils/ByteFIFO.java" afterPath="$PROJECT_DIR$/src/main/java/eu/powet/FOTAA/utils/ByteFIFO.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/eu/powet/FOTAA/Utils/KHelpers.java" afterPath="$PROJECT_DIR$/src/main/java/eu/powet/FOTAA/utils/Helpers.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/eu/powet/FOTAA/jna/FlashEvent.java" afterPath="$PROJECT_DIR$/src/main/java/eu/powet/FOTAA/jna/FotaaEvent.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/eu/powet/FOTAA/jna/FlashJNA.java" afterPath="$PROJECT_DIR$/src/main/java/eu/powet/FOTAA/jna/FotaaJNA.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/c/FOTAA/NativeFOTAA/test" afterPath="$PROJECT_DIR$/src/main/c/FOTAA/NativeFOTAA/test" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/resources/nix32/flash.so" afterPath="$PROJECT_DIR$/src/main/resources/nix32/flash.so" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/resources/nix64/flash.so" afterPath="$PROJECT_DIR$/src/main/resources/nix64/flash.so" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/eu/powet/FOTAA/API_FOTAA/FlashFirmware.class" afterPath="$PROJECT_DIR$/target/classes/eu/powet/FOTAA/API_FOTAA/FlashFirmware.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/eu/powet/FOTAA/API_FOTAA/FlashFirmwareEvent.class" afterPath="$PROJECT_DIR$/target/classes/eu/powet/FOTAA/API_FOTAA/FlashFirmwareEvent.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/eu/powet/FOTAA/API_FOTAA/FlashFirmwareEventListener.class" afterPath="$PROJECT_DIR$/target/classes/eu/powet/FOTAA/API_FOTAA/FlashFirmwareEventListener.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/eu/powet/FOTAA/Constants$1.class" afterPath="$PROJECT_DIR$/target/classes/eu/powet/FOTAA/Constants$1.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/eu/powet/FOTAA/Constants$2.class" afterPath="$PROJECT_DIR$/target/classes/eu/powet/FOTAA/Constants$2.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/eu/powet/FOTAA/Constants.class" afterPath="$PROJECT_DIR$/target/classes/eu/powet/FOTAA/Constants.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/eu/powet/FOTAA/Test$1.class" afterPath="$PROJECT_DIR$/target/classes/eu/powet/FOTAA/Test$1.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/eu/powet/FOTAA/Test.class" afterPath="$PROJECT_DIR$/target/classes/eu/powet/FOTAA/Test.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/eu/powet/FOTAA/jna/NativeLoader.class" afterPath="$PROJECT_DIR$/target/classes/eu/powet/FOTAA/jna/NativeLoader.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/nix32/flash.so" afterPath="$PROJECT_DIR$/target/classes/nix32/flash.so" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/nix64/flash.so" afterPath="$PROJECT_DIR$/target/classes/nix64/flash.so" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/osx/flash.so" afterPath="$PROJECT_DIR$/target/classes/osx/flash.so" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/eu.powet.FOTAA-1.0-SNAPSHOT.jar" afterPath="$PROJECT_DIR$/target/eu.powet.FOTAA-1.0-SNAPSHOT.jar" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/modules.xml" afterPath="$PROJECT_DIR$/.idea/modules.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/vcs.xml" afterPath="$PROJECT_DIR$/.idea/vcs.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/.name" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/ant.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/compiler.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/copyright/profiles_settings.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/encodings.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/libraries/Maven__net_java_dev_jna_jna_3_2_7.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/misc.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/modules.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/scopes/scope_settings.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/uiDesigner.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/vcs.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/eu.powet.FOTAA.iml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/c/FOTAA/NativeFOTAA/test" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/resources/osx/flash.so" afterPath="" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/c/FOTAA/NativeFOTAA/flash.c" afterPath="$PROJECT_DIR$/src/main/c/FOTAA/NativeFOTAA/flash.c" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/c/FOTAA/NativeFOTAA/flash.h" afterPath="$PROJECT_DIR$/src/main/c/FOTAA/NativeFOTAA/flash.h" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/c/FOTAA/NativeFOTAA/test.c" afterPath="$PROJECT_DIR$/src/main/c/FOTAA/NativeFOTAA/test.c" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/eu/powet/FOTAA/Constants.java" afterPath="$PROJECT_DIR$/src/main/java/eu/powet/FOTAA/Constants.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/eu/powet/FOTAA/Test.java" afterPath="$PROJECT_DIR$/src/main/java/eu/powet/FOTAA/Test.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/eu/powet/FOTAA/jna/NativeLoader.java" afterPath="$PROJECT_DIR$/src/main/java/eu/powet/FOTAA/jna/NativeLoader.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/maven-archiver/pom.properties" afterPath="$PROJECT_DIR$/target/maven-archiver/pom.properties" />
     </list>
     <ignored path="eu.powet.rxtx.SerialUSB.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -128,7 +77,44 @@
     <favorites_list name="eu.powet.rxtx.SerialUSB" />
   </component>
   <component name="FileEditorManager">
-    <leaf />
+    <leaf>
+      <file leaf-file-name="Test.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/eu/powet/FOTAA/Test.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="20" column="25" selection-start="499" selection-end="499" vertical-scroll-proportion="0.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Firmware.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/eu/powet/FOTAA/Firmware.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="17" column="28" selection-start="483" selection-end="483" vertical-scroll-proportion="0.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="flash.c" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/main/c/FOTAA/NativeFOTAA/flash.c">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="300" column="32" selection-start="5594" selection-end="5594" vertical-scroll-proportion="0.8272059">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="flash.h" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/c/FOTAA/NativeFOTAA/flash.h">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="28" column="21" selection-start="748" selection-end="748" vertical-scroll-proportion="0.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+    </leaf>
   </component>
   <component name="FindManager">
     <FindUsagesManager>
@@ -143,14 +129,10 @@
   <component name="IdeDocumentHistory">
     <option name="changedFiles">
       <list>
-        <option value="$PROJECT_DIR$/src/main/java/eu/powet/FOTAA/jna/FotaaJNA.java" />
-        <option value="$PROJECT_DIR$/src/main/java/eu/powet/FOTAA/FirmwareEventListener.java" />
-        <option value="$PROJECT_DIR$/src/main/java/eu/powet/FOTAA/UploadedEvent.java" />
         <option value="$PROJECT_DIR$/src/main/java/eu/powet/FOTAA/FirmwareEvent.java" />
         <option value="$PROJECT_DIR$/src/main/java/eu/powet/FOTAA/Firmware.java" />
         <option value="$PROJECT_DIR$/src/main/java/eu/powet/FOTAA/Constants.java" />
         <option value="$PROJECT_DIR$/src/main/java/eu/powet/FOTAA/DeviceAVR.java" />
-        <option value="$PROJECT_DIR$/src/main/java/eu/powet/FOTAA/Test.java" />
         <option value="$PROJECT_DIR$/src/main/java/eu/powet/FOTAA/jna/NativeLoader.java" />
         <option value="$PROJECT_DIR$/src/main/resources/Bootloaders/atmega328p/Wireless_Bootloader_ATmega328.c" />
         <option value="$PROJECT_DIR$/src/main/resources/Bootloaders/atmega328p/compile.sh" />
@@ -159,6 +141,10 @@
         <option value="$PROJECT_DIR$/src/main/resources/Bootloaders/atmega328p/Makefile" />
         <option value="$PROJECT_DIR$/src/main/resources/Bootloaders/atmega128/Makefile" />
         <option value="$PROJECT_DIR$/src/main/java/eu/powet/FOTAA/utils/Bootloader.java" />
+        <option value="$PROJECT_DIR$/src/main/java/eu/powet/FOTAA/Test.java" />
+        <option value="$PROJECT_DIR$/src/main/c/FOTAA/NativeFOTAA/test.c" />
+        <option value="$PROJECT_DIR$/src/main/c/FOTAA/NativeFOTAA/flash.h" />
+        <option value="$PROJECT_DIR$/src/main/c/FOTAA/NativeFOTAA/flash.c" />
       </list>
     </option>
   </component>
@@ -196,18 +182,12 @@
           <option name="myItemType" value="org.jetbrains.idea.maven.navigator.MavenProjectsStructure$LifecycleNode" />
         </PATH_ELEMENT>
       </PATH>
-      <PATH>
-        <PATH_ELEMENT>
-          <option name="myItemId" value="" />
-          <option name="myItemType" value="org.jetbrains.idea.maven.navigator.MavenProjectsStructure$RootNode" />
-        </PATH_ELEMENT>
-      </PATH>
     </treeState>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="y" value="30" />
+    <option name="y" value="23" />
     <option name="width" value="1920" />
-    <option name="height" value="1146" />
+    <option name="height" value="937" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="false">
     <OptionsSetting value="true" id="Add" />
@@ -236,6 +216,7 @@
     </navigator>
     <panes>
       <pane id="Scope" />
+      <pane id="PackagesPane" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -250,7 +231,7 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="eu.powet.FOTAA" />
+              <option name="myItemId" value="FOTAA" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -260,7 +241,7 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="eu.powet.FOTAA" />
+              <option name="myItemId" value="FOTAA" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
@@ -282,33 +263,7 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="eu.powet.FOTAA" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="main" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="resources" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Bootloaders" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="eu.powet.rxtx.SerialUSB" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="eu.powet.FOTAA" />
+              <option name="myItemId" value="FOTAA" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
@@ -334,7 +289,7 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="eu.powet.FOTAA" />
+              <option name="myItemId" value="FOTAA" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
@@ -345,48 +300,37 @@
               <option name="myItemId" value="main" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="c" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="FOTAA" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="NativeFOTAA" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
           </PATH>
         </subPane>
       </pane>
-      <pane id="PackagesPane" />
     </panes>
   </component>
   <component name="PropertiesComponent">
     <property name="GoToFile.includeJavaFiles" value="false" />
-    <property name="OverrideImplement.combined" value="true" />
     <property name="GoToClass.toSaveIncludeLibraries" value="false" />
-    <property name="MemberChooser.sorted" value="false" />
+    <property name="OverrideImplement.combined" value="true" />
     <property name="recentsLimit" value="5" />
+    <property name="MemberChooser.sorted" value="false" />
     <property name="MemberChooser.showClasses" value="true" />
     <property name="GoToClass.includeLibraries" value="false" />
-    <property name="MemberChooser.copyJavadoc" value="false" />
     <property name="dynamic.classpath" value="false" />
+    <property name="MemberChooser.copyJavadoc" value="false" />
   </component>
   <component name="RunManager" selected="Application.Test">
     <configuration default="false" name="Test" type="Application" factoryName="Application" temporary="true">
       <option name="MAIN_CLASS_NAME" value="eu.powet.FOTAA.Test" />
-      <option name="VM_PARAMETERS" />
-      <option name="PROGRAM_PARAMETERS" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
-      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
-      <option name="ALTERNATIVE_JRE_PATH" />
-      <option name="ENABLE_SWING_INSPECTOR" value="false" />
-      <option name="ENV_VARIABLES" />
-      <option name="PASS_PARENT_ENVS" value="true" />
-      <module name="eu.powet.FOTAA" />
-      <envs />
-      <RunnerSettings RunnerId="Debug">
-        <option name="DEBUG_PORT" value="" />
-        <option name="TRANSPORT" value="0" />
-        <option name="LOCAL" value="true" />
-      </RunnerSettings>
-      <RunnerSettings RunnerId="Run" />
-      <ConfigurationWrapper RunnerId="Debug" />
-      <ConfigurationWrapper RunnerId="Run" />
-      <method />
-    </configuration>
-    <configuration default="false" name="Bootloader" type="Application" factoryName="Application" temporary="true">
-      <option name="MAIN_CLASS_NAME" value="eu.powet.FOTAA.utils.Bootloader" />
       <option name="VM_PARAMETERS" />
       <option name="PROGRAM_PARAMETERS" />
       <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
@@ -477,6 +421,24 @@
         <option name="Maven.BeforeRunTask" enabled="false" />
       </method>
     </configuration>
+    <configuration default="true" type="Applet" factoryName="Applet">
+      <module name="" />
+      <option name="MAIN_CLASS_NAME" />
+      <option name="HTML_FILE_NAME" />
+      <option name="HTML_USED" value="false" />
+      <option name="WIDTH" value="400" />
+      <option name="HEIGHT" value="300" />
+      <option name="POLICY_FILE" value="$APPLICATION_HOME_DIR$/bin/appletviewer.policy" />
+      <option name="VM_PARAMETERS" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <method>
+        <option name="AntTarget" enabled="false" />
+        <option name="BuildArtifacts" enabled="false" />
+        <option name="Make" enabled="true" />
+        <option name="Maven.BeforeRunTask" enabled="false" />
+      </method>
+    </configuration>
     <configuration default="true" type="TestNG" factoryName="TestNG">
       <module name="" />
       <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
@@ -502,24 +464,6 @@
       <envs />
       <properties />
       <listeners />
-      <method>
-        <option name="AntTarget" enabled="false" />
-        <option name="BuildArtifacts" enabled="false" />
-        <option name="Make" enabled="true" />
-        <option name="Maven.BeforeRunTask" enabled="false" />
-      </method>
-    </configuration>
-    <configuration default="true" type="Applet" factoryName="Applet">
-      <module name="" />
-      <option name="MAIN_CLASS_NAME" />
-      <option name="HTML_FILE_NAME" />
-      <option name="HTML_USED" value="false" />
-      <option name="WIDTH" value="400" />
-      <option name="HEIGHT" value="300" />
-      <option name="POLICY_FILE" value="$APPLICATION_HOME_DIR$/bin/appletviewer.policy" />
-      <option name="VM_PARAMETERS" />
-      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
-      <option name="ALTERNATIVE_JRE_PATH" />
       <method>
         <option name="AntTarget" enabled="false" />
         <option name="BuildArtifacts" enabled="false" />
@@ -571,9 +515,8 @@
         <option name="Maven.BeforeRunTask" enabled="false" />
       </method>
     </configuration>
-    <list size="2">
+    <list size="1">
       <item index="0" class="java.lang.String" itemvalue="Application.Test" />
-      <item index="1" class="java.lang.String" itemvalue="Application.Bootloader" />
     </list>
     <configuration name="&lt;template&gt;" type="WebApp" default="true" selected="false">
       <Host>localhost</Host>
@@ -590,24 +533,24 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="0" y="30" width="1920" height="1146" extended-state="0" />
+    <frame x="0" y="23" width="1920" height="937" extended-state="0" />
     <editor active="false" />
     <layout>
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3297456" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32885087" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.39921722" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.39853302" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25733855" sideWeight="0.50695187" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3297456" sideWeight="0.49786097" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3297456" sideWeight="0.49572194" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32885087" sideWeight="0.49572194" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="true" content_ui="tabs" />
-      <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.08770054" sideWeight="0.7426615" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.088675216" sideWeight="0.7457213" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.2737968" sideWeight="0.7426615" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.25733855" sideWeight="0.4893048" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.2735043" sideWeight="0.7457213" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.25427872" sideWeight="0.4893048" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
@@ -670,120 +613,94 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="jar:///opt/jdk1.6.0_27/src.zip!/java/util/Map.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="176" column="6" selection-start="8646" selection-end="8646" vertical-scroll-proportion="0.33238232">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/eu/powet/FOTAA/Constants.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="42" column="22" selection-start="1263" selection-end="1263" vertical-scroll-proportion="0.66984993">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/resources/avrdude.conf">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/eu/powet/FOTAA/Gui.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="48" column="16" selection-start="1530" selection-end="1530" vertical-scroll-proportion="0.9699864">
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/pom.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/eu/powet/FOTAA/FirmwareEventListener.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="8" column="17" selection-start="130" selection-end="130" vertical-scroll-proportion="0.23076923">
-          <folding />
-        </state>
+        <state line="8" column="17" selection-start="130" selection-end="130" vertical-scroll-proportion="0.23076923" />
       </provider>
     </entry>
     <entry file="jar://$MAVEN_REPOSITORY$/net/java/dev/jna/jna/3.2.7/jna-3.2.7.jar!/com/sun/jna/NativeLibrary.class">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="5" column="13" selection-start="149" selection-end="149" vertical-scroll-proportion="0.08733624">
-          <folding />
-        </state>
+        <state line="5" column="13" selection-start="149" selection-end="149" vertical-scroll-proportion="0.08733624" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/eu/powet/FOTAA/jna/NativeLoader.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="26" column="23" selection-start="820" selection-end="820" vertical-scroll-proportion="0.53206">
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/resources/Bootloaders/atmega328p/Wireless_Bootloader_ATmega328.c">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="80" column="41" selection-start="3640" selection-end="3640" vertical-scroll-proportion="-1.6458334">
-          <folding />
-        </state>
+        <state line="26" column="23" selection-start="820" selection-end="820" vertical-scroll-proportion="0.53206" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/resources/Bootloaders/atmega328p/Makefile">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="183" column="13" selection-start="5884" selection-end="5897" vertical-scroll-proportion="1.0282485">
-          <folding />
-        </state>
+        <state line="183" column="13" selection-start="5884" selection-end="5897" vertical-scroll-proportion="1.0282485" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/resources/Bootloaders/ATMEGA1280/readme">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/resources/Bootloaders/atmega128/Makefile">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="210" column="27" selection-start="7020" selection-end="7020" vertical-scroll-proportion="0.33333334">
-          <folding />
-        </state>
+        <state line="210" column="27" selection-start="7020" selection-end="7020" vertical-scroll-proportion="0.33333334" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/eu/powet/FOTAA/DeviceAVR.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="26" column="5" selection-start="540" selection-end="540" vertical-scroll-proportion="0.020463847">
-          <folding />
-        </state>
+        <state line="26" column="5" selection-start="540" selection-end="540" vertical-scroll-proportion="0.020463847" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/eu/powet/FOTAA/utils/Bootloader.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="112" column="34" selection-start="3824" selection-end="3824" vertical-scroll-proportion="0.64305556">
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
+        <state line="112" column="34" selection-start="3824" selection-end="3824" vertical-scroll-proportion="0.64305556" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/eu/powet/FOTAA/UploadedEvent.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="8" column="13" selection-start="126" selection-end="126" vertical-scroll-proportion="0.16371077" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/resources/Bootloaders/atmega328p/Wireless_Bootloader_ATmega328.c">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="81" column="33" selection-start="3670" selection-end="3674" vertical-scroll-proportion="1.8684211">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/c/FOTAA/NativeFOTAA/test.c">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="25" column="28" selection-start="284" selection-end="284" vertical-scroll-proportion="0.5917667">
+          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/eu/powet/FOTAA/Test.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="18" column="84" selection-start="458" selection-end="458" vertical-scroll-proportion="0.3478854">
+        <state line="20" column="25" selection-start="499" selection-end="499" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/eu/powet/FOTAA/UploadedEvent.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/eu/powet/FOTAA/Firmware.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="8" column="13" selection-start="126" selection-end="126" vertical-scroll-proportion="0.16371077">
+        <state line="17" column="28" selection-start="483" selection-end="483" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/c/FOTAA/NativeFOTAA/flash.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="28" column="21" selection-start="748" selection-end="748" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/c/FOTAA/NativeFOTAA/flash.c">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="300" column="32" selection-start="5594" selection-end="5594" vertical-scroll-proportion="0.8272059">
           <folding />
         </state>
       </provider>

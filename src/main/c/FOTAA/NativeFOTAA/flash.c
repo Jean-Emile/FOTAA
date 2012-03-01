@@ -278,7 +278,6 @@ void *flash_firmware(Target *infos)
 	for(i=0;i< MAX_SIZE_ID-1;i++)
 	{
 		ID[i]  =(char)   serialport_readbyte(fd);
-
 	}
 	
 	for(i=0;i< MAX_SIZE_ID-1;i++)
@@ -460,8 +459,7 @@ void *flash_firmware(Target *infos)
 int write_on_the_air_program(char *port_device,int target,char *dest_node_id,int taille,unsigned char *raw_intel_hex_array)
 {
 	pthread_t flash;
-	struct termios original;
-	struct termios parametres;
+	struct termios tty;
 	int status,i;
 	Target *mytarget  = (Target*)malloc(sizeof(Target));
 	strcpy(mytarget->port_device,port_device);
@@ -476,86 +474,40 @@ int write_on_the_air_program(char *port_device,int target,char *dest_node_id,int
 	{
 		return -1;
 	}
-#ifdef OSX
-	mytarget->fd = open(mytarget->port_device, O_RDWR | O_NONBLOCK );
-#endif
-
-#ifdef NUX
-	mytarget->fd = open(mytarget->port_device, O_RDWR ,0 );
-#endif
-
-	fd = mytarget->fd;
-	if(mytarget->fd < 0)
-	{
-		close_flash();
-		return -5;
-	}
-	flash_exit =0;
-
-    tcgetattr(mytarget->fd, & original);
-    tcgetattr(mytarget->fd, & parametres);
-    cfmakeraw(& parametres);
-    cfsetispeed(& parametres, B19200);
-    cfsetospeed(& parametres, B19200);
-
-    //No parity (8N1):
-    parametres.c_cflag &= ~PARENB;
-    parametres.c_cflag &= ~CSTOPB;
-    parametres.c_cflag &= ~CSIZE;
-    parametres.c_cflag |= CS8;
-
-    // no flow control
-    parametres.c_cflag &= ~CRTSCTS;
-    parametres.c_cflag |= CREAD | CLOCAL | IXON; // turn on READ & ignore ctrl lines
-    parametres.c_lflag &= ~(ICANON | ECHO | ECHOE | ISIG | IEXTEN ); // make raw
-
-    parametres.c_oflag &= ~OPOST; // make raw
-        parametres.c_oflag &= ~ONLCR; // make raw
-
-    // see: http://unixwiz.net/techtips/termios-vmin-vtime.html
-    parametres.c_cc[VMIN] = 0;
-    parametres.c_cc[VTIME] = 10;
-
-
-    if (tcsetattr(mytarget->fd, TCSANOW, & parametres) != 0) {
-    perror("tcsetattr");
-    close_flash();
-    return -4;
-    }
-
-
-
-
-    // Set RTS
-    ioctl(mytarget->fd, TIOCMGET, &status);
-    status |= TIOCM_RTS;
-    ioctl(fd, TIOCMSET, &status);
-
-    // Set DTR
-    ioctl(mytarget->fd, TIOCMGET, &status);
-    status |= TIOCM_DTR;
-    ioctl(mytarget->fd, TIOCMSET, &status);
-
-
-    /* flush the serial device */
-    tcflush(mytarget->fd, TCIOFLUSH);
+	fd = open(mytarget->port_device, O_RDWR | O_NONBLOCK );
+    tcgetattr(fd, &tty);
+    tty.c_iflag       = INPCK;
+    tty.c_lflag       = 0;
+    tty.c_oflag       = 0;
+    tty.c_cflag       = CREAD | CS8 | CLOCAL;
+    tty.c_cc[ VMIN ]  = 0;
+    tty.c_cc[ VTIME ] = 10;
+    cfsetispeed(&tty, B19200);
+    cfsetospeed(&tty, B19200);
+    tcsetattr(fd, TCSANOW, &tty);
+    mytarget->fd = fd;
 
 	return  pthread_create (& flash, NULL,&flash_firmware, mytarget);
 }
 
-
 uint8_t  serialport_readbyte( int fd)
 {
-	uint8_t b;
+	char b;
 	int n = read(fd,&b,1);
-	if( n!=1)
-		return -1;
+	if( n!=1){
+	perror("read");
+			return -1;
+	}
+
 	return b;
 }
-int serialport_writebyte( int fd, uint8_t b)
+int serialport_writebyte( int fd, char b)
 {
 	int n = write(fd,&b,1);
-	if( n!=1)
-		return -1;
+	if( n!=1){
+	perror("write");
+			return -1;
+	}
+
 	return 0;
 }

@@ -275,13 +275,6 @@ void *flash_firmware(Target *infos)
 		close_flash();
 	}
 
-<<<<<<< HEAD
-
-=======
-	int i;
-	char ID[MAX_SIZE_ID];
-	memset(ID,0,sizeof(ID));
->>>>>>> origin/master
 	for(i=0;i< MAX_SIZE_ID-1;i++)
 	{
 		ID[i]  =(char)   serialport_readbyte(fd);

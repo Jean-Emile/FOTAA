@@ -34,7 +34,7 @@ public class Test {
             }
         });
 
-        Thread.currentThread().sleep(1000000);
+        Thread.currentThread().sleep(50000);
 
 
 

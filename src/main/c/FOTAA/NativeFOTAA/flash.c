@@ -260,12 +260,13 @@ void *flash_firmware(Target *infos)
     int i;
     char ID[MAX_SIZE_ID];    
     RESTART:
-            memset(ID,0,sizeof(ID));
+    memset(ID,0,sizeof(ID));
+
+    serialport_writebyte(infos->fd,'r');
     do
     {
         boot_flag =  serialport_readbyte(infos->fd);
         FlashEvent(-35);
-        usleep(1000);
     }while( boot_flag !=5 && flash_exit == 0);
 
     if(serialport_writebyte(infos->fd,6) < 0)
@@ -294,7 +295,7 @@ void *flash_firmware(Target *infos)
         goto RESTART;
     }
 
-    printf("node %s \n",ID);
+  //  printf("node %s \n",ID);
     FlashEvent(-29);
     if(strcmp(ID,infos->dest_node_id))
     {

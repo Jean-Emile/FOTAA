@@ -28,7 +28,6 @@
 #define ATMEGA1280 1
 #define ATMEGA168 2
 
-
 typedef struct _target
 {
  char port_device[MAX_SIZE_DEVICE_NAME];

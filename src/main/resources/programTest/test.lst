@@ -57,7 +57,7 @@
   67               	.LM11:
   68 002a 1092 C500 		sts 197,__zero_reg__
   69               	.LM12:
-  70 002e 88E0      		ldi r24,lo8(8)
+  70 002e 83E3      		ldi r24,lo8(51)
   71 0030 8093 C400 		sts 196,r24
   72               	.LM13:
   73 0034 88E1      		ldi r24,lo8(24)
@@ -164,19 +164,18 @@
  180               	.LFE6:
  182               		.data
  183               	.LC0:
- 184 0000 0A0D 2020 		.string	"\n\r  JEAN-EMILE 16 \n\r"
- 184      4A45 414E 
- 184      2D45 4D49 
- 184      4C45 2031 
- 184      3620 0A0D 
+ 184 0000 0A0D 2020 		.string	"\n\r  FOTAA  \n\r"
+ 184      464F 5441 
+ 184      4120 200A 
+ 184      0D00 
  185               	.LC1:
- 186 0015 5265 7175 		.string	"Request auto reset "
+ 186 000e 5265 7175 		.string	"Request auto reset "
  186      6573 7420 
  186      6175 746F 
  186      2072 6573 
  186      6574 2000 
  187               	.LC2:
- 188 0029 596F 7520 		.string	"You pressed: %c\n\r"
+ 188 0022 596F 7520 		.string	"You pressed: %c\n\r"
  188      7072 6573 
  188      7365 643A 
  188      2025 630A 
@@ -216,89 +215,235 @@
  222 00b8 01F4      		brne .L17
  223               	.LM43:
  224 00ba 00D0      		rcall .
- 225 00bc 80E0      		ldi r24,lo8(.LC0)
- 226 00be 90E0      		ldi r25,hi8(.LC0)
+ 225 00bc C0E0      		ldi r28,lo8(.LC0)
+ 226 00be D0E0      		ldi r29,hi8(.LC0)
  227 00c0 ADB7      		in r26,__SP_L__
  228 00c2 BEB7      		in r27,__SP_H__
  229 00c4 1296      		adiw r26,1+1
- 230 00c6 9C93      		st X,r25
- 231 00c8 8E93      		st -X,r24
+ 230 00c6 DC93      		st X,r29
+ 231 00c8 CE93      		st -X,r28
  232 00ca 1197      		sbiw r26,1
  233 00cc 0E94 0000 		call printf
- 234 00d0 0F90      		pop __tmp_reg__
- 235 00d2 0F90      		pop __tmp_reg__
- 236               	.LM44:
- 237 00d4 C0E0      		ldi r28,lo8(.LC2)
- 238 00d6 D0E0      		ldi r29,hi8(.LC2)
- 239               	.L22:
+ 234               	.LM44:
+ 235 00d0 EDB7      		in r30,__SP_L__
+ 236 00d2 FEB7      		in r31,__SP_H__
+ 237 00d4 D283      		std Z+2,r29
+ 238 00d6 C183      		std Z+1,r28
+ 239 00d8 0E94 0000 		call printf
  240               	.LM45:
- 241 00d8 0E94 0000 		call getch
- 242               	.LVL13:
- 243               	.LM46:
- 244 00dc 8237      		cpi r24,lo8(114)
- 245 00de 01F4      		brne .L19
- 246               	.LM47:
- 247 00e0 80E0      		ldi r24,lo8(.LC1)
- 248 00e2 90E0      		ldi r25,hi8(.LC1)
- 249               	.LVL14:
- 250 00e4 0E94 0000 		call puts
- 251               	.LM48:
- 252 00e8 E091 0000 		lds r30,bootloader
- 253 00ec F091 0000 		lds r31,bootloader+1
- 254 00f0 0995      		icall
- 255 00f2 00C0      		rjmp .L22
- 256               	.LVL15:
- 257               	.L19:
- 258               	.LM49:
- 259 00f4 00D0      		rcall .
- 260 00f6 00D0      		rcall .
- 261 00f8 EDB7      		in r30,__SP_L__
- 262 00fa FEB7      		in r31,__SP_H__
- 263 00fc 3196      		adiw r30,1
- 264 00fe ADB7      		in r26,__SP_L__
- 265 0100 BEB7      		in r27,__SP_H__
- 266 0102 1296      		adiw r26,1+1
- 267 0104 DC93      		st X,r29
- 268 0106 CE93      		st -X,r28
- 269 0108 1197      		sbiw r26,1
- 270 010a 8283      		std Z+2,r24
- 271 010c 1382      		std Z+3,__zero_reg__
- 272 010e 0E94 0000 		call printf
- 273               	.LVL16:
- 274 0112 0F90      		pop __tmp_reg__
- 275 0114 0F90      		pop __tmp_reg__
- 276 0116 0F90      		pop __tmp_reg__
- 277 0118 0F90      		pop __tmp_reg__
- 278 011a 00C0      		rjmp .L22
- 279               	.LFE1:
- 281               	.global	bootloader
- 282               		.data
- 285               	bootloader:
- 286 003b E013      		.word	5088
- 289               	mystdout:
- 290 003d 0000 00   		.skip 3,0
- 291 0040 02        		.byte	2
- 292 0041 0000 0000 		.skip 4,0
- 293 0045 0000      		.word	gs(uart_putchar)
- 294 0047 0000      		.word	0
- 295 0049 0000      		.word	0
- 360               	.Letext0:
+ 241 00dc ADB7      		in r26,__SP_L__
+ 242 00de BEB7      		in r27,__SP_H__
+ 243 00e0 1296      		adiw r26,1+1
+ 244 00e2 DC93      		st X,r29
+ 245 00e4 CE93      		st -X,r28
+ 246 00e6 1197      		sbiw r26,1
+ 247 00e8 0E94 0000 		call printf
+ 248               	.LM46:
+ 249 00ec EDB7      		in r30,__SP_L__
+ 250 00ee FEB7      		in r31,__SP_H__
+ 251 00f0 D283      		std Z+2,r29
+ 252 00f2 C183      		std Z+1,r28
+ 253 00f4 0E94 0000 		call printf
+ 254 00f8 ADB7      		in r26,__SP_L__
+ 255 00fa BEB7      		in r27,__SP_H__
+ 256 00fc 1296      		adiw r26,1+1
+ 257 00fe DC93      		st X,r29
+ 258 0100 CE93      		st -X,r28
+ 259 0102 1197      		sbiw r26,1
+ 260 0104 0E94 0000 		call printf
+ 261               	.LM47:
+ 262 0108 EDB7      		in r30,__SP_L__
+ 263 010a FEB7      		in r31,__SP_H__
+ 264 010c D283      		std Z+2,r29
+ 265 010e C183      		std Z+1,r28
+ 266 0110 0E94 0000 		call printf
+ 267 0114 ADB7      		in r26,__SP_L__
+ 268 0116 BEB7      		in r27,__SP_H__
+ 269 0118 1296      		adiw r26,1+1
+ 270 011a DC93      		st X,r29
+ 271 011c CE93      		st -X,r28
+ 272 011e 1197      		sbiw r26,1
+ 273 0120 0E94 0000 		call printf
+ 274               	.LM48:
+ 275 0124 EDB7      		in r30,__SP_L__
+ 276 0126 FEB7      		in r31,__SP_H__
+ 277 0128 D283      		std Z+2,r29
+ 278 012a C183      		std Z+1,r28
+ 279 012c 0E94 0000 		call printf
+ 280 0130 ADB7      		in r26,__SP_L__
+ 281 0132 BEB7      		in r27,__SP_H__
+ 282 0134 1296      		adiw r26,1+1
+ 283 0136 DC93      		st X,r29
+ 284 0138 CE93      		st -X,r28
+ 285 013a 1197      		sbiw r26,1
+ 286 013c 0E94 0000 		call printf
+ 287               	.LM49:
+ 288 0140 EDB7      		in r30,__SP_L__
+ 289 0142 FEB7      		in r31,__SP_H__
+ 290 0144 D283      		std Z+2,r29
+ 291 0146 C183      		std Z+1,r28
+ 292 0148 0E94 0000 		call printf
+ 293 014c ADB7      		in r26,__SP_L__
+ 294 014e BEB7      		in r27,__SP_H__
+ 295 0150 1296      		adiw r26,1+1
+ 296 0152 DC93      		st X,r29
+ 297 0154 CE93      		st -X,r28
+ 298 0156 1197      		sbiw r26,1
+ 299 0158 0E94 0000 		call printf
+ 300               	.LM50:
+ 301 015c EDB7      		in r30,__SP_L__
+ 302 015e FEB7      		in r31,__SP_H__
+ 303 0160 D283      		std Z+2,r29
+ 304 0162 C183      		std Z+1,r28
+ 305 0164 0E94 0000 		call printf
+ 306 0168 ADB7      		in r26,__SP_L__
+ 307 016a BEB7      		in r27,__SP_H__
+ 308 016c 1296      		adiw r26,1+1
+ 309 016e DC93      		st X,r29
+ 310 0170 CE93      		st -X,r28
+ 311 0172 1197      		sbiw r26,1
+ 312 0174 0E94 0000 		call printf
+ 313               	.LM51:
+ 314 0178 EDB7      		in r30,__SP_L__
+ 315 017a FEB7      		in r31,__SP_H__
+ 316 017c D283      		std Z+2,r29
+ 317 017e C183      		std Z+1,r28
+ 318 0180 0E94 0000 		call printf
+ 319 0184 ADB7      		in r26,__SP_L__
+ 320 0186 BEB7      		in r27,__SP_H__
+ 321 0188 1296      		adiw r26,1+1
+ 322 018a DC93      		st X,r29
+ 323 018c CE93      		st -X,r28
+ 324 018e 1197      		sbiw r26,1
+ 325 0190 0E94 0000 		call printf
+ 326               	.LM52:
+ 327 0194 EDB7      		in r30,__SP_L__
+ 328 0196 FEB7      		in r31,__SP_H__
+ 329 0198 D283      		std Z+2,r29
+ 330 019a C183      		std Z+1,r28
+ 331 019c 0E94 0000 		call printf
+ 332 01a0 ADB7      		in r26,__SP_L__
+ 333 01a2 BEB7      		in r27,__SP_H__
+ 334 01a4 1296      		adiw r26,1+1
+ 335 01a6 DC93      		st X,r29
+ 336 01a8 CE93      		st -X,r28
+ 337 01aa 1197      		sbiw r26,1
+ 338 01ac 0E94 0000 		call printf
+ 339               	.LM53:
+ 340 01b0 EDB7      		in r30,__SP_L__
+ 341 01b2 FEB7      		in r31,__SP_H__
+ 342 01b4 D283      		std Z+2,r29
+ 343 01b6 C183      		std Z+1,r28
+ 344 01b8 0E94 0000 		call printf
+ 345 01bc ADB7      		in r26,__SP_L__
+ 346 01be BEB7      		in r27,__SP_H__
+ 347 01c0 1296      		adiw r26,1+1
+ 348 01c2 DC93      		st X,r29
+ 349 01c4 CE93      		st -X,r28
+ 350 01c6 1197      		sbiw r26,1
+ 351 01c8 0E94 0000 		call printf
+ 352               	.LM54:
+ 353 01cc EDB7      		in r30,__SP_L__
+ 354 01ce FEB7      		in r31,__SP_H__
+ 355 01d0 D283      		std Z+2,r29
+ 356 01d2 C183      		std Z+1,r28
+ 357 01d4 0E94 0000 		call printf
+ 358 01d8 ADB7      		in r26,__SP_L__
+ 359 01da BEB7      		in r27,__SP_H__
+ 360 01dc 1296      		adiw r26,1+1
+ 361 01de DC93      		st X,r29
+ 362 01e0 CE93      		st -X,r28
+ 363 01e2 1197      		sbiw r26,1
+ 364 01e4 0E94 0000 		call printf
+ 365               	.LM55:
+ 366 01e8 EDB7      		in r30,__SP_L__
+ 367 01ea FEB7      		in r31,__SP_H__
+ 368 01ec D283      		std Z+2,r29
+ 369 01ee C183      		std Z+1,r28
+ 370 01f0 0E94 0000 		call printf
+ 371 01f4 ADB7      		in r26,__SP_L__
+ 372 01f6 BEB7      		in r27,__SP_H__
+ 373 01f8 1296      		adiw r26,1+1
+ 374 01fa DC93      		st X,r29
+ 375 01fc CE93      		st -X,r28
+ 376 01fe 1197      		sbiw r26,1
+ 377 0200 0E94 0000 		call printf
+ 378               	.LM56:
+ 379 0204 EDB7      		in r30,__SP_L__
+ 380 0206 FEB7      		in r31,__SP_H__
+ 381 0208 D283      		std Z+2,r29
+ 382 020a C183      		std Z+1,r28
+ 383 020c 0E94 0000 		call printf
+ 384 0210 0F90      		pop __tmp_reg__
+ 385 0212 0F90      		pop __tmp_reg__
+ 386               	.LM57:
+ 387 0214 C0E0      		ldi r28,lo8(.LC2)
+ 388 0216 D0E0      		ldi r29,hi8(.LC2)
+ 389               	.L22:
+ 390               	.LM58:
+ 391 0218 0E94 0000 		call getch
+ 392               	.LVL13:
+ 393               	.LM59:
+ 394 021c 8237      		cpi r24,lo8(114)
+ 395 021e 01F4      		brne .L19
+ 396               	.LM60:
+ 397 0220 80E0      		ldi r24,lo8(.LC1)
+ 398 0222 90E0      		ldi r25,hi8(.LC1)
+ 399               	.LVL14:
+ 400 0224 0E94 0000 		call puts
+ 401 0228 00C0      		rjmp .L22
+ 402               	.LVL15:
+ 403               	.L19:
+ 404               	.LM61:
+ 405 022a 00D0      		rcall .
+ 406 022c 00D0      		rcall .
+ 407 022e EDB7      		in r30,__SP_L__
+ 408 0230 FEB7      		in r31,__SP_H__
+ 409 0232 3196      		adiw r30,1
+ 410 0234 ADB7      		in r26,__SP_L__
+ 411 0236 BEB7      		in r27,__SP_H__
+ 412 0238 1296      		adiw r26,1+1
+ 413 023a DC93      		st X,r29
+ 414 023c CE93      		st -X,r28
+ 415 023e 1197      		sbiw r26,1
+ 416 0240 8283      		std Z+2,r24
+ 417 0242 1382      		std Z+3,__zero_reg__
+ 418 0244 0E94 0000 		call printf
+ 419               	.LVL16:
+ 420 0248 0F90      		pop __tmp_reg__
+ 421 024a 0F90      		pop __tmp_reg__
+ 422 024c 0F90      		pop __tmp_reg__
+ 423 024e 0F90      		pop __tmp_reg__
+ 424 0250 00C0      		rjmp .L22
+ 425               	.LFE1:
+ 427               	.global	bootloader
+ 428               		.data
+ 431               	bootloader:
+ 432 0034 E013      		.word	5088
+ 435               	mystdout:
+ 436 0036 0000 00   		.skip 3,0
+ 437 0039 02        		.byte	2
+ 438 003a 0000 0000 		.skip 4,0
+ 439 003e 0000      		.word	gs(uart_putchar)
+ 440 0040 0000      		.word	0
+ 441 0042 0000      		.word	0
+ 506               	.Letext0:
 DEFINED SYMBOLS
                             *ABS*:0000000000000000 test.c
-     /tmp/ccu6b68Y.s:2      *ABS*:000000000000003f __SREG__
-     /tmp/ccu6b68Y.s:3      *ABS*:000000000000003e __SP_H__
-     /tmp/ccu6b68Y.s:4      *ABS*:000000000000003d __SP_L__
-     /tmp/ccu6b68Y.s:5      *ABS*:0000000000000034 __CCP__
-     /tmp/ccu6b68Y.s:6      *ABS*:0000000000000000 __tmp_reg__
-     /tmp/ccu6b68Y.s:7      *ABS*:0000000000000001 __zero_reg__
-     /tmp/ccu6b68Y.s:17     .text:0000000000000000 uart_putchar
-     /tmp/ccu6b68Y.s:53     .text:0000000000000022 ioinit
-     /tmp/ccu6b68Y.s:289    .data:000000000000003d mystdout
-     /tmp/ccu6b68Y.s:90     .text:000000000000004c delay_us
-     /tmp/ccu6b68Y.s:116    .text:000000000000005a delay_ms
-     /tmp/ccu6b68Y.s:160    .text:0000000000000086 getch
-     /tmp/ccu6b68Y.s:192    .text:0000000000000096 main
-     /tmp/ccu6b68Y.s:285    .data:000000000000003b bootloader
+     /tmp/cc2Ipfzi.s:2      *ABS*:000000000000003f __SREG__
+     /tmp/cc2Ipfzi.s:3      *ABS*:000000000000003e __SP_H__
+     /tmp/cc2Ipfzi.s:4      *ABS*:000000000000003d __SP_L__
+     /tmp/cc2Ipfzi.s:5      *ABS*:0000000000000034 __CCP__
+     /tmp/cc2Ipfzi.s:6      *ABS*:0000000000000000 __tmp_reg__
+     /tmp/cc2Ipfzi.s:7      *ABS*:0000000000000001 __zero_reg__
+     /tmp/cc2Ipfzi.s:17     .text:0000000000000000 uart_putchar
+     /tmp/cc2Ipfzi.s:53     .text:0000000000000022 ioinit
+     /tmp/cc2Ipfzi.s:435    .data:0000000000000036 mystdout
+     /tmp/cc2Ipfzi.s:90     .text:000000000000004c delay_us
+     /tmp/cc2Ipfzi.s:116    .text:000000000000005a delay_ms
+     /tmp/cc2Ipfzi.s:160    .text:0000000000000086 getch
+     /tmp/cc2Ipfzi.s:192    .text:0000000000000096 main
+     /tmp/cc2Ipfzi.s:431    .data:0000000000000034 bootloader
 
 UNDEFINED SYMBOLS
 __iob

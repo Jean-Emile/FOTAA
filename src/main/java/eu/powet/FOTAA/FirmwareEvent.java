@@ -42,6 +42,10 @@ public class FirmwareEvent extends EventObject implements FotaaEvent {
         {
             //System.out.println("Ready..");
         }
+        else if(taille == -39)
+        {
+            System.out.println("ERROR = "+taille+" "+Constants.messages.get(taille));
+        }
         else if (taille <0)
         {
             System.out.println("ERROR = "+taille+" "+Constants.messages.get(taille));

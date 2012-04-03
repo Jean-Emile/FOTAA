@@ -6,7 +6,7 @@
 
 #define FOSC 16000000 //8MHz internal osc
 //#define FOSC 1000000 //1MHz internal osc
-#define BAUD 115200
+#define BAUD 19200
 #define MYUBRR (((((FOSC * 10) / (16L * BAUD)) + 5) / 10) - 1)
 
 #define STATUS_LED	5 //PORTB
@@ -45,15 +45,14 @@ int main (void)
 		delay_ms(200);
 	}
 
-	printf("\n\r  JEAN-EMILE 16 \n\r");
 
+    printf("\n\r  FOTAA  \n\r");
 	while(1)
 	{
 		my_ch = getch();
 
 		if(my_ch == 'r'){
 			printf("Request auto reset \n");
-			bootloader();
 		}
 		else
 			printf("You pressed: %c\n\r", my_ch);

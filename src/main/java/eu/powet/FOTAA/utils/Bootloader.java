@@ -7,9 +7,8 @@ package eu.powet.FOTAA.utils;
  * Time: 11:37
  */
 
-import eu.powet.FOTAA.DeviceAVR;
-import eu.powet.FOTAA.ProgrammerType;
 import eu.powet.FOTAA.api.IBootloader;
+import eu.powet.FOTAA.gui.ProgrammerType;
 import eu.powet.FOTAA.jna.NativeLoader;
 
 import java.io.BufferedReader;
@@ -21,16 +20,16 @@ import java.util.concurrent.Semaphore;
 public class Bootloader  implements Runnable,IBootloader
 {
     private Process process=null;
-    private DeviceAVR avr=null;
+
     private ProgrammerType programmer=null;
     private StringBuilder logging=null;
     private Thread t = null;
     private Semaphore lock = new Semaphore(0);
 
-    public Bootloader(ProgrammerType _programmerType,DeviceAVR _avrdevice){
+    public Bootloader(ProgrammerType _programmerType){
         t = new Thread(this);
         this.programmer = _programmerType;
-        this.avr = _avrdevice;
+
     }
     public void burnBootloader()
     {
@@ -146,7 +145,7 @@ public class Bootloader  implements Runnable,IBootloader
 
     public static void main(String args[])
     {
-        Bootloader burn = new Bootloader(new ProgrammerType("usbtiny"),new DeviceAVR("m328p","K000"));
-        burn.burnBootloader();
+        //Bootloader burn = new Bootloader(new ProgrammerType("usbtiny"),new DeviceAVR("m328p","K000"));
+        //burn.burnBootloader();
     }
 }

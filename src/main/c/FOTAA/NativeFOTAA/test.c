@@ -22,8 +22,8 @@ int main(int argc,char **argv[])
 {
 
 int lastmem;
-   unsigned char file_intel_hex_array[30720];
-   int taille =  open_file("/home/jed/githubJED/eu.powet.FOTAA/src/main/resources/programTest/test.hex",&file_intel_hex_array);
+   unsigned char file_intel_hex_array[35720];
+   int taille =  open_file("/tmp/arduinoGeneratednode0/target/uno/arduinoGeneratednode0.hex",&file_intel_hex_array);
   if(taille <=0)
   {
 	printf("file not found\n");
@@ -35,8 +35,8 @@ int lastmem;
 
 register_FlashEvent(event);
 
-  write_on_the_air_program("/dev/ttyUSB0",ATMEGA328,"K000",taille,&file_intel_hex_array[0]);
-         sleep(10);
+  write_on_the_air_program("/dev/ttyACM0",ATMEGA328,"K000",taille,&file_intel_hex_array[0]);
+         sleep(600);
 
 
  return 0;

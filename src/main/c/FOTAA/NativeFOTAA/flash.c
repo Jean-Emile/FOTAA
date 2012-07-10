@@ -5,8 +5,33 @@
  * Time: 18:49
  */
 #include "flash.h"
+#include <sys/ipc.h>
+#include <sys/shm.h>
 
 #define _POSIX_SOURCE 1 /* POSIX compliant source */
+#define JED_IPC_PRIVATE 787818
+
+#define BOOTLOADER_SAVE_FLAG 'S'
+#define READY_BOOTLOADER_FLAG 'T'
+#define ALIVE 0
+#define RE_SEND_FLAG 7
+#define OK 0
+#define ERROR -1
+#define ERROR_WRITE -2
+#define ERROR_READ -3
+#define FD_DISCONNECTED -10
+#define ERROR_NOT_ENOUGH_FLASH -11
+#define EXIT 1
+#define EVENT_WAITING_BOOTLOADER 2
+#define FINISH 3
+#define RE_SEND_EVENT 4
+#define BOOTLOADER_STARTED 5
+#define BOOT_INTO_BOOTLOADER_FLAG 6
+
+
+
+
+// EVENTS
 
 ///#define DEBUG
 
@@ -16,12 +41,13 @@
  * @param  Pointer of array
  * @return size of the file
  */
-static int flash_exit =0;
 static int fd =0;
+int shmid;
+// memory shared
+static int *quitter;
 
 
 void (*FlashEvent) (int taille);
-
 
 
 /**
@@ -59,34 +85,20 @@ int open_file(char *path,unsigned char *hex_intel){
 
 }
 
-unsigned int hex2dec( char *s )
-{
-    unsigned int v = 0;
-    char *p;
 
-    for( p = s; *p; p++ )
+int HexToDec (char *str)
+{
+  int value;
+  if (sscanf (str, "%x", &value) == 1)
     {
-        if( isdigit( *p ) )
-            v = (v * 16) + (*p - '0');
-        else
-        {
-            *p = tolower( *p );
-            if( *p >= 'a' && *p <= 'f' )
-                v = (v * 16) + 10 + (*p - 'a');
-            else
-                return -1;
-        }
+      return value;
     }
-    return v;
+  else
+    {
+      return ERROR;
+    }
 }
 
-int HexToDec(char *str)
-{
-    int value;
-    // so simple WTF !
-    sscanf(str,"%x",&value);
-    return value;
-}
 
 int parseHex(char h,char l)
 {
@@ -212,11 +224,10 @@ int hex2bin(char *sHexString)
     return answer;
 }
 
-void close_flash(){
-
-    if(flash_exit == 0)
-        close(fd);
-    flash_exit = 1;
+void close_flash()
+{
+    *quitter = EXIT;
+     close(fd);
 }
 
 
@@ -225,7 +236,7 @@ void *flash_firmware(Target *infos)
     int last_memory;
     unsigned char  octet;
     uint8_t boot_flag,ready_flag,start_flag;
-    uint8_t flash_flag=6;
+    uint8_t flash_flag;
     int n ;
     int Memory_Address_High;
     int Memory_Address_Low;
@@ -234,7 +245,8 @@ void *flash_firmware(Target *infos)
     int page_size;
     int flash_size;
     char c;
-    char NODE_ID[MAX_SIZE_ID];
+    char flag_bootloader;
+    char *addr;
 
     // customize for target
     switch(infos->target)
@@ -252,91 +264,77 @@ void *flash_firmware(Target *infos)
         flash_size = 131072;  // TODO
         break;
     default :
-        FlashEvent(-1);
+        FlashEvent(ERROR);
         close_flash();
         break;
     }
 
-    int i;
-    char ID[MAX_SIZE_ID];    
+         // create memory shared
+         shmid = shmget(JED_IPC_PRIVATE,sizeof(int), 0666 | IPC_CREAT );
+         if(shmid < 0)
+         {
+             perror("shmid");
+           FlashEvent(ERROR);
+           close_flash();
+         }
+          addr = shmat(shmid, 0, 0);
+          if(addr < 0)
+          {
+              perror("shmat");
+           FlashEvent(ERROR);
+           close_flash();
+          }
+         // bind to memory shared
+        quitter = (int *) addr;
+        if(quitter == NULL)
+        {
+                FlashEvent(ERROR);
+                close_flash();
+        }
+
+
     RESTART:
-    memset(ID,0,sizeof(ID));
 
     serialport_writebyte(infos->fd,'r');
     do
     {
         boot_flag =  serialport_readbyte(infos->fd);
-        FlashEvent(-35);
-    }while( boot_flag !=5 && flash_exit == 0);
+        FlashEvent(EVENT_WAITING_BOOTLOADER);
+    }while( boot_flag !=BOOTLOADER_STARTED && *quitter == ALIVE);
 
-    if(serialport_writebyte(infos->fd,6) < 0)
+    if(serialport_writebyte(infos->fd,BOOT_INTO_BOOTLOADER_FLAG) < 0)
     {
-        FlashEvent(-2);
+        FlashEvent(ERROR_WRITE);
         close_flash();
     }
 
-    for(i=0;i< MAX_SIZE_ID-1;i++)
+    boot_flag =  serialport_readbyte(infos->fd);
+
+    if(boot_flag == BOOTLOADER_STARTED )
     {
-        ID[i]  =(char)   serialport_readbyte(fd);
-    }
-    
-    for(i=0;i< MAX_SIZE_ID-1;i++)
-        {
-        if(ID[i]  == -1 )
-        {
-                goto RESTART;
-            FlashEvent(-35);
-        }
-    }
-    
-    if(ID[0] == 5 )
-    {
-        memset(ID,0,sizeof(ID));
         goto RESTART;
     }
 
-  //  printf("node %s \n",ID);
-    FlashEvent(-29);
-    if(strcmp(ID,infos->dest_node_id))
-    {
-        FlashEvent(-33);
-        close_flash();
-    }
-    else
-    {
-        // printf("Node is %s\n",ID);
-
-        for(i=0;i< MAX_SIZE_ID-1;i++)
-        {
-            if(serialport_writebyte(infos->fd,infos->dest_node_id[i]) < 0)
-            {
-                FlashEvent(-2);
-                close_flash();
-            }
-
-        }
-
         current_memory_address = 0;
 
-        while((current_memory_address < infos->last_memory_address) && (flash_exit == 0))
+        while((current_memory_address < infos->last_memory_address) && (*quitter == ALIVE))
         {
 
             FlashEvent(current_memory_address);
             //printf("\n %d/%d octets ",current_memory_address, infos->last_memory_address);
             ready_flag =  serialport_readbyte(fd);
-            if(ready_flag == 'T')
+            if(ready_flag == READY_BOOTLOADER_FLAG)
             {
                 //printf(" The bootloader is ready :%c\n",ready_flag);
-            }else if(ready_flag = 7)
+            }else if(ready_flag = RE_SEND_FLAG)
             {
                 //printf("Re-send line %d \n",ready_flag);
-                FlashEvent(-36);
+                FlashEvent(RE_SEND_EVENT);
                 current_memory_address = current_memory_address - page_size;
                 if(current_memory_address  < 0) current_memory_address  =0;
             }else
             {
-                FlashEvent(-34);
-                usleep(50);
+                FlashEvent(ERROR);
                 // WTF ?!!
             }
 
@@ -369,13 +367,13 @@ void *flash_firmware(Target *infos)
             //printf("Send the start character :\n");
             if(serialport_writebyte(infos->fd,':') < 0)
             {
-                FlashEvent(-2);
+                FlashEvent(ERROR_WRITE);
             }
         //    printf("Send page_size %d\n",page_size);
             c = page_size;
             //Send the record length
             if(serialport_writebyte(infos->fd,c) < 0){
-                FlashEvent(-2);
+                FlashEvent(ERROR_WRITE);
             }
 
         //    printf("Send this block's address Low %d \n",Memory_Address_Low);
@@ -383,13 +381,13 @@ void *flash_firmware(Target *infos)
             if(serialport_writebyte(infos->fd,c) < 0)
             {
                 // perror("write byte mem low");
-                FlashEvent(-2);
+                FlashEvent(ERROR_WRITE);
             }
             c=Memory_Address_High;
             if(serialport_writebyte(infos->fd,Memory_Address_High) < 0)
             {
                 //  perror("write byte mem high");
-                FlashEvent(-2);
+                FlashEvent(ERROR_WRITE);
             }
 
         //    printf("Send this block's check sum %d \n",Check_Sum);
@@ -397,18 +395,18 @@ void *flash_firmware(Target *infos)
             if(serialport_writebyte(infos->fd,c)< 0)
             {
                 //  perror("write byte check sum");
-                FlashEvent(-2);
+                FlashEvent(ERROR_WRITE);
             }
 
             //Send the block
             j=0;
-            while(j < (page_size)  && (flash_exit == 0) )
+            while(j < (page_size)  && (*quitter == ALIVE) )
             {
                 unsigned char block =     infos->intel_hex_array[current_memory_address + j];
                 if(serialport_writebyte(infos->fd,block) < 0)
                 {
                       perror("write byte hex");
-                    FlashEvent(-2);
+                    FlashEvent(ERROR_WRITE);
                 }
             //    printf("%x",block);
                 j++;
@@ -420,83 +418,118 @@ void *flash_firmware(Target *infos)
         int ack1,ack2,ack3;
         if(serialport_writebyte(infos->fd,':') < 0)
         {
-            FlashEvent(-2);
+            FlashEvent(ERROR_WRITE);
         }
         ack1 = serialport_readbyte(infos->fd);
 
-        if(serialport_writebyte(infos->fd,'S') < 0)
+        if(serialport_writebyte(infos->fd,BOOTLOADER_SAVE_FLAG) < 0)
         {
-            FlashEvent(-2);
+            FlashEvent(ERROR_WRITE);
         }
         ack2 = serialport_readbyte(infos->fd);
-        if(serialport_writebyte(infos->fd,'S') < 0)
+        if(serialport_writebyte(infos->fd,BOOTLOADER_SAVE_FLAG) < 0)
         {
-            FlashEvent(-2);
+            FlashEvent(ERROR_WRITE);
         }
         ack3 = serialport_readbyte(infos->fd);
-        if(serialport_writebyte(infos->fd,'S') < 0)
+        if(serialport_writebyte(infos->fd,BOOTLOADER_SAVE_FLAG) < 0)
         {
-            FlashEvent(-2);
+            FlashEvent(ERROR_WRITE);
         }
 
-        if(ack1 == 'T' && ack2 == 'F')
-        {
-            FlashEvent(-38);
-        }
-        else
-        {
-            FlashEvent(-39);
-        }
-    }
+
+    close_flash();
+
+    FlashEvent(FINISH);
+
+
     if(infos != NULL)
         free(infos);
 
-    close_flash();
+
 
     pthread_exit(NULL);
 }
 
-int write_on_the_air_program(char *port_device,int target,char *dest_node_id,int taille,unsigned char *raw_intel_hex_array)
+int write_on_the_air_program(char *port_device,int target,int taille,unsigned char *raw_intel_hex_array)
 {
     pthread_t flash;
     struct termios tty;
     int status,i;
+   char *addr;
     Target *mytarget  = (Target*)malloc(sizeof(Target));
     strcpy(mytarget->port_device,port_device);
     mytarget->target =  target;
-    memset(mytarget->dest_node_id,0,sizeof(mytarget->dest_node_id));
-    strcpy(mytarget->dest_node_id,dest_node_id);
+   // memset(mytarget->dest_node_id,0,sizeof(mytarget->dest_node_id));
+   // strcpy(mytarget->dest_node_id,dest_node_id);
     mytarget->taille = taille;
 
     mytarget->intel_hex_array =  parse_intel_hex(mytarget->taille,&mytarget->last_memory_address,raw_intel_hex_array);
 
     if(mytarget->last_memory_address <= 0)
     {
-        return -1;
+        return ERROR;
     }
 
-    #ifdef OSX
-     fd = open(mytarget->port_device, O_RDWR | O_NONBLOCK );
-    #endif
 
-    #ifdef NUX
-            fd = open(mytarget->port_device, O_RDWR);
-    #endif
+      // create memory shared
+     shmid = shmget(JED_IPC_PRIVATE,sizeof(int), 0666 | IPC_CREAT );
+     if(shmid < 0)
+     {
+         perror("shmid");
+         return ERROR;
+     }
+      addr = shmat(shmid, 0, 0);
+      if(addr < 0)
+      {
+          perror("shmat");
+         return ERROR;
+      }
+     // bind to memory shared
+    quitter = (int *) addr;
+    if(quitter == NULL)
+    {
+          return ERROR;
+    }
+
+    if(*quitter == ALIVE)
+    {
+       *quitter = EXIT;
+       sleep(2);
+    }
+
+    *quitter =ALIVE;
+
+
+    fd = open(mytarget->port_device, O_RDWR);
+
 
     tcgetattr(fd, &tty);
     tty.c_iflag       = INPCK;
     tty.c_lflag       = 0;
     tty.c_oflag       = 0;
-    tty.c_cflag       = CREAD | CS8 | CLOCAL;
+/*
+ CS8     : 8n1 (8 bits,sans parité, 1 bit d'arrêt)
+ CLOCAL  : connexion locale, pas de contrôle par le modem
+ CREAD   : permet la réception des caractères
+*/
+
+    tty.c_cflag       = CREAD | CS8 | CSTOPB;
     tty.c_cc[ VMIN ]  = 0;
-    tty.c_cc[ VTIME ] = 10;
+    tty.c_cc[ VTIME ] = 1;
     cfsetispeed(&tty, B19200);
     cfsetospeed(&tty, B19200);
     tcsetattr(fd, TCSANOW, &tty);
 
-    mytarget->fd = fd;
 
-    return  pthread_create (& flash, NULL,&flash_firmware, mytarget);
+
+
+    mytarget->fd = fd;
+    if(pthread_create (& flash, NULL,&flash_firmware, mytarget) != 0){
+        return ERROR;
+    }
+
+    return mytarget->last_memory_address;
 }
 
 uint8_t  serialport_readbyte( int fd)
@@ -504,7 +537,7 @@ uint8_t  serialport_readbyte( int fd)
     char b;
     int n = read(fd,&b,1);
     if( n!=1){
-            return -1;
+            return ERROR;
     }
 
     return b;
@@ -513,7 +546,7 @@ int serialport_writebyte( int fd, char b)
 {
     int n = write(fd,&b,1);
     if( n!=1){
-            return -1;
+            return ERROR;
     }
     return 0;
 }

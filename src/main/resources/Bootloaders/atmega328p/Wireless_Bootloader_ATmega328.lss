@@ -3,33 +3,33 @@ Wireless_Bootloader_ATmega328.elf:     file format elf32-avr
 
 Sections:
 Idx Name          Size      VMA       LMA       File off  Algn
-  0 .data         00000006  00800100  00007b44  000003d8  2**0
+  0 .data         00000006  00800100  00007b2a  000003be  2**0
                   CONTENTS, ALLOC, LOAD, DATA
-  1 .text         00000344  00007800  00007800  00000094  2**1
+  1 .text         0000032a  00007800  00007800  00000094  2**1
                   CONTENTS, ALLOC, LOAD, READONLY, CODE
-  2 .bss          00000105  00800106  00800106  000003de  2**0
+  2 .bss          00000105  00800106  00800106  000003c4  2**0
                   ALLOC
-  3 .stab         000006cc  00000000  00000000  000003e0  2**2
+  3 .stab         000006cc  00000000  00000000  000003c4  2**2
                   CONTENTS, READONLY, DEBUGGING
-  4 .stabstr      00000054  00000000  00000000  00000aac  2**0
+  4 .stabstr      00000054  00000000  00000000  00000a90  2**0
                   CONTENTS, READONLY, DEBUGGING
-  5 .debug_aranges 00000020  00000000  00000000  00000b00  2**0
+  5 .debug_aranges 00000020  00000000  00000000  00000ae4  2**0
                   CONTENTS, READONLY, DEBUGGING
-  6 .debug_pubnames 000000d1  00000000  00000000  00000b20  2**0
+  6 .debug_pubnames 000000d1  00000000  00000000  00000b04  2**0
                   CONTENTS, READONLY, DEBUGGING
-  7 .debug_info   00000365  00000000  00000000  00000bf1  2**0
+  7 .debug_info   00000365  00000000  00000000  00000bd5  2**0
                   CONTENTS, READONLY, DEBUGGING
-  8 .debug_abbrev 00000193  00000000  00000000  00000f56  2**0
+  8 .debug_abbrev 00000193  00000000  00000000  00000f3a  2**0
                   CONTENTS, READONLY, DEBUGGING
-  9 .debug_line   000003b5  00000000  00000000  000010e9  2**0
+  9 .debug_line   0000039b  00000000  00000000  000010cd  2**0
                   CONTENTS, READONLY, DEBUGGING
- 10 .debug_frame  00000080  00000000  00000000  000014a0  2**2
+ 10 .debug_frame  00000080  00000000  00000000  00001468  2**2
                   CONTENTS, READONLY, DEBUGGING
- 11 .debug_str    00000199  00000000  00000000  00001520  2**0
+ 11 .debug_str    0000018c  00000000  00000000  000014e8  2**0
                   CONTENTS, READONLY, DEBUGGING
- 12 .debug_loc    0000027a  00000000  00000000  000016b9  2**0
+ 12 .debug_loc    0000027a  00000000  00000000  00001674  2**0
                   CONTENTS, READONLY, DEBUGGING
- 13 .debug_pubtypes 0000004f  00000000  00000000  00001933  2**0
+ 13 .debug_pubtypes 0000004f  00000000  00000000  000018ee  2**0
                   CONTENTS, READONLY, DEBUGGING
 
 Disassembly of section .text:
@@ -74,7 +74,7 @@ Disassembly of section .text:
     7874:	11 e0       	ldi	r17, 0x01	; 1
     7876:	a0 e0       	ldi	r26, 0x00	; 0
     7878:	b1 e0       	ldi	r27, 0x01	; 1
-    787a:	e4 e4       	ldi	r30, 0x44	; 68
+    787a:	ea e2       	ldi	r30, 0x2A	; 42
     787c:	fb e7       	ldi	r31, 0x7B	; 123
     787e:	02 c0       	rjmp	.+4      	; 0x7884 <__do_copy_data+0x10>
     7880:	05 90       	lpm	r0, Z+
@@ -97,7 +97,7 @@ Disassembly of section .text:
     7896:	b1 07       	cpc	r27, r17
     7898:	e1 f7       	brne	.-8      	; 0x7892 <.do_clear_bss_loop>
     789a:	0e 94 e4 3c 	call	0x79c8	; 0x79c8 <main>
-    789e:	0c 94 a0 3d 	jmp	0x7b40	; 0x7b40 <_exit>
+    789e:	0c 94 93 3d 	jmp	0x7b26	; 0x7b26 <_exit>
 
 000078a2 <__bad_interrupt>:
     78a2:	0c 94 00 3c 	jmp	0x7800	; 0x7800 <__vectors>
@@ -289,12 +289,12 @@ char getch(void)
     7952:	a1 1d       	adc	r26, r1
     7954:	b1 1d       	adc	r27, r1
 		if (count > MAX_WAIT_IN_CYCLES) //
-    7956:	81 3a       	cpi	r24, 0xA1	; 161
-    7958:	26 e8       	ldi	r18, 0x86	; 134
+    7956:	87 30       	cpi	r24, 0x07	; 7
+    7958:	2f e9       	ldi	r18, 0x9F	; 159
     795a:	92 07       	cpc	r25, r18
-    795c:	21 e0       	ldi	r18, 0x01	; 1
+    795c:	2e ef       	ldi	r18, 0xFE	; 254
     795e:	a2 07       	cpc	r26, r18
-    7960:	20 e0       	ldi	r18, 0x00	; 0
+    7960:	2f ef       	ldi	r18, 0xFF	; 255
     7962:	b2 07       	cpc	r27, r18
     7964:	19 f4       	brne	.+6      	; 0x796c <getch+0x2a>
 		{
@@ -477,14 +477,14 @@ int main(void)
     7a04:	01 1d       	adc	r16, r1
     7a06:	11 1d       	adc	r17, r1
 		if (count > MAX_WAIT_IN_CYCLES)
-    7a08:	21 ea       	ldi	r18, 0xA1	; 161
-    7a0a:	e2 16       	cp	r14, r18
-    7a0c:	26 e8       	ldi	r18, 0x86	; 134
-    7a0e:	f2 06       	cpc	r15, r18
-    7a10:	21 e0       	ldi	r18, 0x01	; 1
-    7a12:	02 07       	cpc	r16, r18
-    7a14:	20 e0       	ldi	r18, 0x00	; 0
-    7a16:	12 07       	cpc	r17, r18
+    7a08:	87 e0       	ldi	r24, 0x07	; 7
+    7a0a:	e8 16       	cp	r14, r24
+    7a0c:	8f e9       	ldi	r24, 0x9F	; 159
+    7a0e:	f8 06       	cpc	r15, r24
+    7a10:	8e ef       	ldi	r24, 0xFE	; 254
+    7a12:	08 07       	cpc	r16, r24
+    7a14:	8f ef       	ldi	r24, 0xFF	; 255
+    7a16:	18 07       	cpc	r17, r24
     7a18:	28 f0       	brcs	.+10     	; 0x7a24 <main+0x5c>
 		{
 			app_start();
@@ -512,192 +512,181 @@ int main(void)
     7a34:	e0 91 06 01 	lds	r30, 0x0106
     7a38:	f0 91 07 01 	lds	r31, 0x0107
     7a3c:	09 95       	icall
-	putchKID();
-    7a3e:	0e 94 94 3c 	call	0x7928	; 0x7928 <putchKID>
-	if(checkID() == -1){ app_start();}
-    7a42:	0e 94 bd 3c 	call	0x797a	; 0x797a <checkID>
-    7a46:	ef ef       	ldi	r30, 0xFF	; 255
-    7a48:	8f 3f       	cpi	r24, 0xFF	; 255
-    7a4a:	9e 07       	cpc	r25, r30
-    7a4c:	29 f4       	brne	.+10     	; 0x7a58 <main+0x90>
-    7a4e:	e0 91 06 01 	lds	r30, 0x0106
-    7a52:	f0 91 07 01 	lds	r31, 0x0107
-    7a56:	09 95       	icall
 	//Start bootloading process
 
 	putch(5); //Tell the world we can be bootloaded
 
 	//Check to see if the computer responded
 	uint32_t count = 0;
-    7a58:	80 e0       	ldi	r24, 0x00	; 0
+    7a3e:	80 e0       	ldi	r24, 0x00	; 0
 		if (retransmit_flag == TRUE) goto RESTART;
 
       	if (page_length == 'S') //Check to see if we are done - this is the "all done" command
 		{
 			putch('F');
 			boot_rww_enable (); //Wait for any flash writes to complete?
-    7a5a:	91 e1       	ldi	r25, 0x11	; 17
-    7a5c:	d9 2e       	mov	r13, r25
-	putchKID();
-	if(checkID() == -1){ app_start();}
+    7a40:	91 e1       	ldi	r25, 0x11	; 17
+    7a42:	d9 2e       	mov	r13, r25
+	//putchKID();
+	//if(checkID() == -1){ app_start();}
 	while(1)
 	{
 		//Determine if the last received data was good or bad
         if (check_sum != 0) //If the check sum does not compute, tell computer to resend same line
-    7a5e:	88 23       	and	r24, r24
-    7a60:	11 f0       	breq	.+4      	; 0x7a66 <main+0x9e>
+    7a44:	88 23       	and	r24, r24
+    7a46:	11 f0       	breq	.+4      	; 0x7a4c <main+0x84>
 RESTART:
             putch(7); //Ascii character BELL
-    7a62:	87 e0       	ldi	r24, 0x07	; 7
-    7a64:	01 c0       	rjmp	.+2      	; 0x7a68 <main+0xa0>
+    7a48:	87 e0       	ldi	r24, 0x07	; 7
+    7a4a:	01 c0       	rjmp	.+2      	; 0x7a4e <main+0x86>
         else
             putch('T'); //Tell the computer that we are ready for the next line
-    7a66:	84 e5       	ldi	r24, 0x54	; 84
-    7a68:	0e 94 8d 3c 	call	0x791a	; 0x791a <putch>
+    7a4c:	84 e5       	ldi	r24, 0x54	; 84
+    7a4e:	0e 94 8d 3c 	call	0x791a	; 0x791a <putch>
 
         while(1) //Wait for the computer to initiate transfer
 		{
 			if (getch() == ':') break; //This is the "gimme the next chunk" command
-    7a6c:	0e 94 a1 3c 	call	0x7942	; 0x7942 <getch>
-    7a70:	8a 33       	cpi	r24, 0x3A	; 58
-    7a72:	29 f0       	breq	.+10     	; 0x7a7e <main+0xb6>
+    7a52:	0e 94 a1 3c 	call	0x7942	; 0x7942 <getch>
+    7a56:	8a 33       	cpi	r24, 0x3A	; 58
+    7a58:	29 f0       	breq	.+10     	; 0x7a64 <main+0x9c>
 			if (retransmit_flag == TRUE) goto RESTART;
-    7a74:	80 91 00 01 	lds	r24, 0x0100
-    7a78:	88 23       	and	r24, r24
-    7a7a:	c1 f7       	brne	.-16     	; 0x7a6c <main+0xa4>
-    7a7c:	f2 cf       	rjmp	.-28     	; 0x7a62 <main+0x9a>
+    7a5a:	80 91 00 01 	lds	r24, 0x0100
+    7a5e:	88 23       	and	r24, r24
+    7a60:	c1 f7       	brne	.-16     	; 0x7a52 <main+0x8a>
+    7a62:	f2 cf       	rjmp	.-28     	; 0x7a48 <main+0x80>
 		}
 
         page_length = getch(); //Get the length of this block
-    7a7e:	0e 94 a1 3c 	call	0x7942	; 0x7942 <getch>
-    7a82:	80 93 08 01 	sts	0x0108, r24
+    7a64:	0e 94 a1 3c 	call	0x7942	; 0x7942 <getch>
+    7a68:	80 93 08 01 	sts	0x0108, r24
 		if (retransmit_flag == TRUE) goto RESTART;
-    7a86:	90 91 00 01 	lds	r25, 0x0100
-    7a8a:	99 23       	and	r25, r25
-    7a8c:	51 f3       	breq	.-44     	; 0x7a62 <main+0x9a>
+    7a6c:	90 91 00 01 	lds	r25, 0x0100
+    7a70:	99 23       	and	r25, r25
+    7a72:	51 f3       	breq	.-44     	; 0x7a48 <main+0x80>
 
       	if (page_length == 'S') //Check to see if we are done - this is the "all done" command
-    7a8e:	83 35       	cpi	r24, 0x53	; 83
-    7a90:	59 f4       	brne	.+22     	; 0x7aa8 <main+0xe0>
+    7a74:	83 35       	cpi	r24, 0x53	; 83
+    7a76:	59 f4       	brne	.+22     	; 0x7a8e <main+0xc6>
 		{
 			putch('F');
-    7a92:	86 e4       	ldi	r24, 0x46	; 70
-    7a94:	0e 94 8d 3c 	call	0x791a	; 0x791a <putch>
+    7a78:	86 e4       	ldi	r24, 0x46	; 70
+    7a7a:	0e 94 8d 3c 	call	0x791a	; 0x791a <putch>
 			boot_rww_enable (); //Wait for any flash writes to complete?
-    7a98:	d0 92 57 00 	sts	0x0057, r13
-    7a9c:	e8 95       	spm
+    7a7e:	d0 92 57 00 	sts	0x0057, r13
+    7a82:	e8 95       	spm
 			app_start();
-    7a9e:	e0 91 06 01 	lds	r30, 0x0106
-    7aa2:	f0 91 07 01 	lds	r31, 0x0107
-    7aa6:	09 95       	icall
+    7a84:	e0 91 06 01 	lds	r30, 0x0106
+    7a88:	f0 91 07 01 	lds	r31, 0x0107
+    7a8c:	09 95       	icall
 		}
 
 		//Get the memory address at which to store this block of data
 		page_address.byte[0] = getch(); if (retransmit_flag == TRUE) goto RESTART;
-    7aa8:	0e 94 a1 3c 	call	0x7942	; 0x7942 <getch>
-    7aac:	80 93 09 02 	sts	0x0209, r24
-    7ab0:	80 91 00 01 	lds	r24, 0x0100
-    7ab4:	88 23       	and	r24, r24
-    7ab6:	a9 f2       	breq	.-86     	; 0x7a62 <main+0x9a>
+    7a8e:	0e 94 a1 3c 	call	0x7942	; 0x7942 <getch>
+    7a92:	80 93 09 02 	sts	0x0209, r24
+    7a96:	80 91 00 01 	lds	r24, 0x0100
+    7a9a:	88 23       	and	r24, r24
+    7a9c:	a9 f2       	breq	.-86     	; 0x7a48 <main+0x80>
 		page_address.byte[1] = getch(); if (retransmit_flag == TRUE) goto RESTART;
-    7ab8:	0e 94 a1 3c 	call	0x7942	; 0x7942 <getch>
-    7abc:	80 93 0a 02 	sts	0x020A, r24
-    7ac0:	80 91 00 01 	lds	r24, 0x0100
-    7ac4:	88 23       	and	r24, r24
-    7ac6:	69 f2       	breq	.-102    	; 0x7a62 <main+0x9a>
+    7a9e:	0e 94 a1 3c 	call	0x7942	; 0x7942 <getch>
+    7aa2:	80 93 0a 02 	sts	0x020A, r24
+    7aa6:	80 91 00 01 	lds	r24, 0x0100
+    7aaa:	88 23       	and	r24, r24
+    7aac:	69 f2       	breq	.-102    	; 0x7a48 <main+0x80>
 
         check_sum = getch(); //Pick up the check sum for error dectection
-    7ac8:	0e 94 a1 3c 	call	0x7942	; 0x7942 <getch>
-    7acc:	c8 2e       	mov	r12, r24
+    7aae:	0e 94 a1 3c 	call	0x7942	; 0x7942 <getch>
+    7ab2:	c8 2e       	mov	r12, r24
 		if (retransmit_flag == TRUE) goto RESTART;
-    7ace:	80 91 00 01 	lds	r24, 0x0100
-    7ad2:	88 23       	and	r24, r24
-    7ad4:	31 f2       	breq	.-116    	; 0x7a62 <main+0x9a>
-    7ad6:	c9 e0       	ldi	r28, 0x09	; 9
-    7ad8:	d1 e0       	ldi	r29, 0x01	; 1
-    7ada:	7e 01       	movw	r14, r28
-    7adc:	00 e0       	ldi	r16, 0x00	; 0
-    7ade:	10 e0       	ldi	r17, 0x00	; 0
-    7ae0:	0c c0       	rjmp	.+24     	; 0x7afa <main+0x132>
+    7ab4:	80 91 00 01 	lds	r24, 0x0100
+    7ab8:	88 23       	and	r24, r24
+    7aba:	31 f2       	breq	.-116    	; 0x7a48 <main+0x80>
+    7abc:	c9 e0       	ldi	r28, 0x09	; 9
+    7abe:	d1 e0       	ldi	r29, 0x01	; 1
+    7ac0:	7e 01       	movw	r14, r28
+    7ac2:	00 e0       	ldi	r16, 0x00	; 0
+    7ac4:	10 e0       	ldi	r17, 0x00	; 0
+    7ac6:	0c c0       	rjmp	.+24     	; 0x7ae0 <main+0x118>
 
 		for(i = 0 ; i < page_length ; i++) //Read the program data
 		{
             incoming_page_data[i] = getch();
-    7ae2:	0e 94 a1 3c 	call	0x7942	; 0x7942 <getch>
-    7ae6:	f7 01       	movw	r30, r14
-    7ae8:	81 93       	st	Z+, r24
-    7aea:	7f 01       	movw	r14, r30
+    7ac8:	0e 94 a1 3c 	call	0x7942	; 0x7942 <getch>
+    7acc:	f7 01       	movw	r30, r14
+    7ace:	81 93       	st	Z+, r24
+    7ad0:	7f 01       	movw	r14, r30
 			if (retransmit_flag == TRUE) goto RESTART;
-    7aec:	80 91 00 01 	lds	r24, 0x0100
-    7af0:	88 23       	and	r24, r24
-    7af2:	09 f4       	brne	.+2      	; 0x7af6 <main+0x12e>
-    7af4:	b6 cf       	rjmp	.-148    	; 0x7a62 <main+0x9a>
+    7ad2:	80 91 00 01 	lds	r24, 0x0100
+    7ad6:	88 23       	and	r24, r24
+    7ad8:	09 f4       	brne	.+2      	; 0x7adc <main+0x114>
+    7ada:	b6 cf       	rjmp	.-148    	; 0x7a48 <main+0x80>
 		page_address.byte[1] = getch(); if (retransmit_flag == TRUE) goto RESTART;
 
         check_sum = getch(); //Pick up the check sum for error dectection
 		if (retransmit_flag == TRUE) goto RESTART;
 
 		for(i = 0 ; i < page_length ; i++) //Read the program data
-    7af6:	0f 5f       	subi	r16, 0xFF	; 255
-    7af8:	1f 4f       	sbci	r17, 0xFF	; 255
-    7afa:	90 91 08 01 	lds	r25, 0x0108
-    7afe:	29 2f       	mov	r18, r25
-    7b00:	30 e0       	ldi	r19, 0x00	; 0
-    7b02:	02 17       	cp	r16, r18
-    7b04:	13 07       	cpc	r17, r19
-    7b06:	68 f3       	brcs	.-38     	; 0x7ae2 <main+0x11a>
+    7adc:	0f 5f       	subi	r16, 0xFF	; 255
+    7ade:	1f 4f       	sbci	r17, 0xFF	; 255
+    7ae0:	90 91 08 01 	lds	r25, 0x0108
+    7ae4:	29 2f       	mov	r18, r25
+    7ae6:	30 e0       	ldi	r19, 0x00	; 0
+    7ae8:	02 17       	cp	r16, r18
+    7aea:	13 07       	cpc	r17, r19
+    7aec:	68 f3       	brcs	.-38     	; 0x7ac8 <main+0x100>
 union page_address_union {
 	uint16_t word;
 	uint8_t  byte[2];
 } page_address;
 
 int main(void)
-    7b08:	27 5f       	subi	r18, 0xF7	; 247
-    7b0a:	3e 4f       	sbci	r19, 0xFE	; 254
-    7b0c:	02 c0       	rjmp	.+4      	; 0x7b12 <main+0x14a>
+    7aee:	27 5f       	subi	r18, 0xF7	; 247
+    7af0:	3e 4f       	sbci	r19, 0xFE	; 254
+    7af2:	02 c0       	rjmp	.+4      	; 0x7af8 <main+0x130>
 			if (retransmit_flag == TRUE) goto RESTART;
 		}
 
         //Calculate the checksum
 		for(i = 0 ; i < page_length ; i++)
             check_sum = check_sum + incoming_page_data[i];
-    7b0e:	89 91       	ld	r24, Y+
-    7b10:	c8 0e       	add	r12, r24
+    7af4:	89 91       	ld	r24, Y+
+    7af6:	c8 0e       	add	r12, r24
             incoming_page_data[i] = getch();
 			if (retransmit_flag == TRUE) goto RESTART;
 		}
 
         //Calculate the checksum
 		for(i = 0 ; i < page_length ; i++)
-    7b12:	c2 17       	cp	r28, r18
-    7b14:	d3 07       	cpc	r29, r19
-    7b16:	d9 f7       	brne	.-10     	; 0x7b0e <main+0x146>
+    7af8:	c2 17       	cp	r28, r18
+    7afa:	d3 07       	cpc	r29, r19
+    7afc:	d9 f7       	brne	.-10     	; 0x7af4 <main+0x12c>
             check_sum = check_sum + incoming_page_data[i];
 
         check_sum = check_sum + page_length;
-    7b18:	80 91 0a 02 	lds	r24, 0x020A
-    7b1c:	20 91 09 02 	lds	r18, 0x0209
-    7b20:	82 0f       	add	r24, r18
+    7afe:	80 91 0a 02 	lds	r24, 0x020A
+    7b02:	20 91 09 02 	lds	r18, 0x0209
+    7b06:	82 0f       	add	r24, r18
         check_sum = check_sum + page_address.byte[0];
-    7b22:	89 0f       	add	r24, r25
+    7b08:	89 0f       	add	r24, r25
         check_sum = check_sum + page_address.byte[1];
-    7b24:	8c 0d       	add	r24, r12
+    7b0a:	8c 0d       	add	r24, r12
 
         if(check_sum == 0) //If we have a good transmission, put it in ink
-    7b26:	09 f0       	breq	.+2      	; 0x7b2a <main+0x162>
-    7b28:	9a cf       	rjmp	.-204    	; 0x7a5e <main+0x96>
+    7b0c:	09 f0       	breq	.+2      	; 0x7b10 <main+0x148>
+    7b0e:	9a cf       	rjmp	.-204    	; 0x7a44 <main+0x7c>
             onboard_program_write((uint32_t)page_address.word, incoming_page_data);
-    7b2a:	60 91 09 02 	lds	r22, 0x0209
-    7b2e:	70 91 0a 02 	lds	r23, 0x020A
-    7b32:	80 e0       	ldi	r24, 0x00	; 0
-    7b34:	90 e0       	ldi	r25, 0x00	; 0
-    7b36:	49 e0       	ldi	r20, 0x09	; 9
-    7b38:	51 e0       	ldi	r21, 0x01	; 1
-    7b3a:	0e 94 53 3c 	call	0x78a6	; 0x78a6 <onboard_program_write>
-    7b3e:	93 cf       	rjmp	.-218    	; 0x7a66 <main+0x9e>
+    7b10:	60 91 09 02 	lds	r22, 0x0209
+    7b14:	70 91 0a 02 	lds	r23, 0x020A
+    7b18:	80 e0       	ldi	r24, 0x00	; 0
+    7b1a:	90 e0       	ldi	r25, 0x00	; 0
+    7b1c:	49 e0       	ldi	r20, 0x09	; 9
+    7b1e:	51 e0       	ldi	r21, 0x01	; 1
+    7b20:	0e 94 53 3c 	call	0x78a6	; 0x78a6 <onboard_program_write>
+    7b24:	93 cf       	rjmp	.-218    	; 0x7a4c <main+0x84>
 
-00007b40 <_exit>:
-    7b40:	f8 94       	cli
+00007b26 <_exit>:
+    7b26:	f8 94       	cli
 
-00007b42 <__stop_program>:
-    7b42:	ff cf       	rjmp	.-2      	; 0x7b42 <__stop_program>
+00007b28 <__stop_program>:
+    7b28:	ff cf       	rjmp	.-2      	; 0x7b28 <__stop_program>

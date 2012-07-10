@@ -1,4 +1,4 @@
-package eu.powet.FOTAA;
+package eu.powet.FOTAA.gui;
 
 /**
  * Created by jed

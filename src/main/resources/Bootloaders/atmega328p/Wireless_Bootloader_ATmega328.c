@@ -44,7 +44,7 @@
 
 //Here we calculate the wait period inside getch(). Too few cycles and the XBee may not be able to send the character in time. Too long and your sketch will take a long time to boot after powerup.
 #define CPU_SPEED	16000000
-#define MAX_CHARACTER_WAIT	15 //10 works. 20 works. 5 throws all sorts of retries, but will work.
+#define MAX_CHARACTER_WAIT	20 //10 works. 20 works. 5 throws all sorts of retries, but will work.
 #define MAX_WAIT_IN_CYCLES ( ((MAX_CHARACTER_WAIT * 8) * CPU_SPEED) / BAUD )
 
 //I have found that flow control is not really needed with this implementation of wireless bootloading.
@@ -140,8 +140,8 @@ int main(void)
 		}
 	}
 	if(UDR0 != 6) app_start(); //If the computer did not respond correctly with a ACK, we jump to user's program
-	putchKID();
-	if(checkID() == -1){ app_start();}
+	//putchKID();
+	//if(checkID() == -1){ app_start();}
 	while(1)
 	{
 		//Determine if the last received data was good or bad

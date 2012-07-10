@@ -1,4 +1,6 @@
-package eu.powet.FOTAA;
+package eu.powet.FOTAA.gui;
+
+import eu.powet.FOTAA.utils.Constants;
 
 import javax.swing.*;
 import java.awt.*;

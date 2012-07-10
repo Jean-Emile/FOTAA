@@ -1,4 +1,4 @@
-package eu.powet.FOTAA;
+package eu.powet.FOTAA.utils;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -15,6 +15,16 @@ public final class Constants {
 
     public final static String avrDevices[] = {"m328p", "ATMEGA328"};
     public final static String programmerType[] = {"usbtiny"};
+
+
+
+    public final static int FINISH=3;
+    public final static int OK=0;
+    public final static int EVENT_WAITING_BOOTLOADER=2;
+    public final static int ERROR_WRITE=-2;
+    public final static int ERROR_READ=-3;
+    public final static int RE_SEND_EVENT=4;
+
 
     public final static Map messages= new HashMap() {
         {

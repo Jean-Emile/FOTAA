@@ -1,31 +1,35 @@
 package eu.powet.FOTAA.jna;
 
 import com.sun.jna.Native;
-import com.sun.jna.NativeLibrary;
+
+
 import java.io.*;
-import java.util.HashMap;
 
 
 public class NativeLoader {
 
-    public static synchronized FotaaJNA getINSTANCE_Foa() {
-        configureFOA();
-        return INSTANCE_Foa;
+    public static synchronized FotaaJNA getInstance() {
+        configure();
+        return singleton;
     }
 
-    private static FotaaJNA INSTANCE_Foa = null;
 
-    private static void configureFOA() {
-        if (INSTANCE_Foa == null) {
+    private static FotaaJNA singleton = null;
+
+    private static void configure()
+    {
+        if (singleton == null) {
             try {
-                File folder = new File(System.getProperty("java.io.tmpdir") + File.separator + "FOA");
+                File folder = new File(System.getProperty("java.io.tmpdir") + File.separator + "native");
                 if (folder.exists()) {
                     deleteOldFile(folder);
                 }
                 folder.mkdirs();
                 String absolutePath = copyFileFromStream(getPath("flash.so"), folder.getAbsolutePath(), "flash" + getExtension());
-                NativeLibrary.addSearchPath("flash", folder.getAbsolutePath());
-                INSTANCE_Foa = (FotaaJNA) Native.loadLibrary(absolutePath, FotaaJNA.class, new HashMap());
+               // NativeLibrary.addSearchPath("flash", folder.getAbsolutePath());
+
+                singleton = (FotaaJNA) Native.loadLibrary(absolutePath, FotaaJNA.class);
+                Native.synchronizedLibrary(singleton);
             } catch (IOException e) {
                 e.printStackTrace();
             }

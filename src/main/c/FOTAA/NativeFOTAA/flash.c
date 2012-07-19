@@ -21,14 +21,13 @@
 #define ERROR_READ -3
 #define FD_DISCONNECTED -10
 #define ERROR_NOT_ENOUGH_FLASH -11
+#define FAIL_TO_BOOT_INTO_BOOTLOADER -12
 #define EXIT 1
 #define EVENT_WAITING_BOOTLOADER 2
 #define FINISH 3
 #define RE_SEND_EVENT 4
 #define BOOTLOADER_STARTED 5
 #define BOOT_INTO_BOOTLOADER_FLAG 6
-
-
 
 
 // EVENTS
@@ -47,7 +46,7 @@ int shmid;
 static int *quitter;
 
 
-void (*FlashEvent) (int taille);
+void (*FlashEvent) (int evt);
 
 
 /**
@@ -226,7 +225,10 @@ int hex2bin(char *sHexString)
 
 void close_flash()
 {
-    *quitter = EXIT;
+    if(quitter ==NULL){
+            *quitter = EXIT;
+    }
+
      close(fd);
 }
 
@@ -291,29 +293,6 @@ void *flash_firmware(Target *infos)
                 FlashEvent(ERROR);
                 close_flash();
         }
-
-
-    RESTART:
-
-    serialport_writebyte(infos->fd,'r');
-    do
-    {
-        boot_flag =  serialport_readbyte(infos->fd);
-        FlashEvent(EVENT_WAITING_BOOTLOADER);
-    }while( boot_flag !=BOOTLOADER_STARTED && *quitter == ALIVE);
-
-    if(serialport_writebyte(infos->fd,BOOT_INTO_BOOTLOADER_FLAG) < 0)
-    {
-        FlashEvent(ERROR_WRITE);
-        close_flash();
-    }
-
-    boot_flag =  serialport_readbyte(infos->fd);
-
-    if(boot_flag == BOOTLOADER_STARTED )
-    {
-        goto RESTART;
-    }
 
         current_memory_address = 0;
 
@@ -456,7 +435,9 @@ int write_on_the_air_program(char *port_device,int target,int taille,unsigned ch
     pthread_t flash;
     struct termios tty;
     int status,i;
-   char *addr;
+    char *addr;
+    uint8_t boot_flag;
+    int tentative = 0;
     Target *mytarget  = (Target*)malloc(sizeof(Target));
     strcpy(mytarget->port_device,port_device);
     mytarget->target =  target;
@@ -500,20 +481,14 @@ int write_on_the_air_program(char *port_device,int target,int taille,unsigned ch
 
     *quitter =ALIVE;
 
+ RESTART:
 
     fd = open(mytarget->port_device, O_RDWR);
-
 
     tcgetattr(fd, &tty);
     tty.c_iflag       = INPCK;
     tty.c_lflag       = 0;
     tty.c_oflag       = 0;
-/*
- CS8     : 8n1 (8 bits,sans parité, 1 bit d'arrêt)
- CLOCAL  : connexion locale, pas de contrôle par le modem
- CREAD   : permet la réception des caractères
-*/
-
     tty.c_cflag       = CREAD | CS8 | CSTOPB;
     tty.c_cc[ VMIN ]  = 0;
     tty.c_cc[ VTIME ] = 1;
@@ -521,8 +496,28 @@ int write_on_the_air_program(char *port_device,int target,int taille,unsigned ch
     cfsetospeed(&tty, B19200);
     tcsetattr(fd, TCSANOW, &tty);
 
+    do
+    {
+        boot_flag =  serialport_readbyte(fd);
+        FlashEvent(EVENT_WAITING_BOOTLOADER);
+    }while( boot_flag !=BOOTLOADER_STARTED && *quitter == ALIVE);
 
-
+    if(serialport_writebyte(fd,BOOT_INTO_BOOTLOADER_FLAG) < 0)
+    {
+        FlashEvent(ERROR_WRITE);
+    }
+    boot_flag =  serialport_readbyte(fd);
+    if(boot_flag == BOOTLOADER_STARTED )
+    {
+        close(fd);
+        usleep(1000);
+        tentative++;
+        if(tentative > 5)
+        {
+              return FAIL_TO_BOOT_INTO_BOOTLOADER;
+        }
+        goto RESTART;
+    }
 
     mytarget->fd = fd;
     if(pthread_create (& flash, NULL,&flash_firmware, mytarget) != 0){

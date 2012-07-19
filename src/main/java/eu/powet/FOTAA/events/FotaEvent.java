@@ -33,14 +33,14 @@ public class FotaEvent extends EventObject implements FotaaEvent {
 
     public FotaEvent(Fota src) {
         super(src);
-        NativeLoader.getINSTANCE_Foa().register_FlashEvent(this);
+        NativeLoader.getInstance().register_FlashEvent(this);
         this.fota = src;
     }
 
 
     public void failover()
     {
-        NativeLoader.getINSTANCE_Foa().close_flash();
+        NativeLoader.getInstance().close_flash();
         try
         {
             fota.upload(fota.getRaw_intel_hex_array());
@@ -56,7 +56,7 @@ public class FotaEvent extends EventObject implements FotaaEvent {
         {
             fota.setFinished();
             fota.fireFlashEvent(new UploadedEvent(fota));
-            NativeLoader.getINSTANCE_Foa().close_flash();
+            NativeLoader.getInstance().close_flash();
         } else if(evt == RE_SEND_EVENT)
         {
             //logger.warn("RE_SEND");

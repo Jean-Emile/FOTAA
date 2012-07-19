@@ -2,9 +2,9 @@ package eu.powet.FOTAA;
 
 import eu.powet.FOTAA.api.FotaEventListener;
 import eu.powet.FOTAA.events.FotaEvent;
+import eu.powet.FOTAA.jna.NativeLoader;
 import eu.powet.FOTAA.utils.Board;
 import eu.powet.FOTAA.utils.Helpers;
-import eu.powet.FOTAA.jna.NativeLoader;
 
 
 public class Test {

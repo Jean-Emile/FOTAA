@@ -6,7 +6,6 @@ import eu.powet.FOTAA.api.FotaEventListener;
 import eu.powet.FOTAA.api.IFota;
 import eu.powet.FOTAA.events.FotaEvent;
 import eu.powet.FOTAA.events.UploadedEvent;
-import eu.powet.FOTAA.events.WaitingBLEvent;
 import eu.powet.FOTAA.jna.NativeLoader;
 import eu.powet.FOTAA.utils.Board;
 import eu.powet.FOTAA.utils.Constants;
@@ -21,6 +20,7 @@ import eu.powet.FOTAA.utils.Helpers;
  * Time: 09:56
  */
 public class Fota implements IFota {
+
     protected javax.swing.event.EventListenerList listenerList = new javax.swing.event.EventListenerList();
     private FotaEvent fotaEvent =null;
     private String deviceport = "";
@@ -83,7 +83,7 @@ public class Fota implements IFota {
         byte c = '\n';
         inipar.getPointer().setByte((raw_intel_hex_array.length + 1) * Byte.SIZE / 8, c);
 
-        program_size = NativeLoader.getINSTANCE_Foa().write_on_the_air_program(deviceport,devicetype,raw_intel_hex_array.length,inipar);
+        program_size = NativeLoader.getInstance().write_on_the_air_program(deviceport,devicetype,raw_intel_hex_array.length,inipar);
         if(program_size < 0)
         {
             throw new FotaException("Empty");

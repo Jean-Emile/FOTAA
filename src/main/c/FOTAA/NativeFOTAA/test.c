@@ -7,7 +7,7 @@ void event(int count)
 {
 
 
-            printf("%d\n",count);
+
 	if(count == -38) 
 	{
 		printf("Successfully flashed\n");
@@ -21,7 +21,7 @@ void event(int count)
 int main(int argc,char **argv[])
 {
 
-int lastmem;
+   int lastmem;
    unsigned char file_intel_hex_array[35720];
    int taille =  open_file("/tmp/arduinoGeneratednode0/target/uno/arduinoGeneratednode0.hex",&file_intel_hex_array);
   if(taille <=0)

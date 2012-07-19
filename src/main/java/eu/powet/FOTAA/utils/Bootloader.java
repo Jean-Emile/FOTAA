@@ -103,8 +103,8 @@ public class Bootloader  implements Runnable,IBootloader
             }
             folder.mkdirs();
 
-            String pathcodesource = NativeLoader.copyFileFromStream( "Bootloaders/atmega328p/Wireless_Bootloader_ATmega328.c", folder.getAbsolutePath(), "Wireless_Bootloader_ATmega328.c");
-            String pathmakefile = NativeLoader.copyFileFromStream( "Bootloaders/atmega328p/Makefile", folder.getAbsolutePath(), "Makefile");
+            String pathcodesource = NativeLoader.copyFileFromStream("Bootloaders/atmega328p/Wireless_Bootloader_ATmega328.c", folder.getAbsolutePath(), "Wireless_Bootloader_ATmega328.c");
+            String pathmakefile = NativeLoader.copyFileFromStream("Bootloaders/atmega328p/Makefile", folder.getAbsolutePath(), "Makefile");
 
             File dir = new File ( folder.getPath()) ;
             String [] envp = {"" } ;
